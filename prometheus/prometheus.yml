@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: "juneogo"
+    metrics_path: "/ext/metrics"
+    scheme: "http"
+    tls_config:
+      insecure_skip_verify: true
+    static_configs:
+      - targets: ['localhost:9650']
+
+  - job_name: 'juneogo-machine'
+    static_configs:
+      - targets: ['localhost:9100']
