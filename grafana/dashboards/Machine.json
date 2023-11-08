@@ -167,7 +167,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(1 - avg(irate(node_cpu_seconds_total{job=~\"juneogo_machine\", mode=\"idle\"}[1m])) by (instance)) * 100",
+          "expr": "(1 - avg(irate(node_cpu_seconds_total{job=~\"juneogo-machine\", mode=\"idle\"}[1m])) by (instance)) * 100",
           "interval": "",
           "legendFormat": "CPU",
           "refId": "A"
@@ -593,7 +593,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "100 * (node_memory_MemTotal_bytes{job=~\"juneogo_machine\"} - node_memory_MemFree_bytes{job=~\"juneogo_machine\"} - node_memory_Buffers_bytes{job=~\"juneogo_machine\"} - node_memory_Cached_bytes{job=~\"juneogo_machine\"}) / node_memory_MemTotal_bytes{job=~\"juneogo_machine\"}",
+          "expr": "100 * (node_memory_MemTotal_bytes{job=~\"juneogo-machine\"} - node_memory_MemFree_bytes{job=~\"juneogo-machine\"} - node_memory_Buffers_bytes{job=~\"juneogo-machine\"} - node_memory_Cached_bytes{job=~\"juneogo-machine\"}) / node_memory_MemTotal_bytes{job=~\"juneogo-machine\"}",
           "interval": "",
           "legendFormat": "Memory",
           "refId": "A"
@@ -723,7 +723,7 @@
       "pluginVersion": "8.0.5",
       "targets": [
         {
-          "expr": "max(((node_filesystem_size_bytes{job=~\"juneogo_machine\", fstype=~\"ext4|vfat\"} - node_filesystem_free_bytes{job=~\"juneogo_machine\", fstype=~\"ext4|vfat\"}) / node_filesystem_size_bytes{job=~\"juneogo_machine\", fstype=~\"ext4|vfat\"}) * 100) by (instance)",
+          "expr": "max(((node_filesystem_size_bytes{job=~\"juneogo-machine\", fstype=~\"ext4|vfat\"} - node_filesystem_free_bytes{job=~\"juneogo-machine\", fstype=~\"ext4|vfat\"}) / node_filesystem_size_bytes{job=~\"juneogo-machine\", fstype=~\"ext4|vfat\"}) * 100) by (instance)",
           "interval": "",
           "legendFormat": "Disk",
           "refId": "A"
