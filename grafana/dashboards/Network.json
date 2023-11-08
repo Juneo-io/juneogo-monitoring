@@ -2519,7 +2519,7 @@
         "type": "prometheus",
         "uid": "${node}"
       },
-      "description": "Amount of the stake in AVAX that is benched (ignored) because the nodes are unhealthy",
+      "description": "Amount of the stake in JUNE that is benched (ignored) because the nodes are unhealthy",
       "fieldConfig": {
         "defaults": {
           "color": {

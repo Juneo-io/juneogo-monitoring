@@ -625,7 +625,7 @@
         "type": "prometheus",
         "uid": "${node}"
       },
-      "description": "Measures how much of each second is being spent handling different kinds of messages on the C-Chain.\nThe value for chits, for example, is the number of seconds spent handling chits messages per second, over the last 30 seconds.",
+      "description": "Measures how much of each second is being spent handling different kinds of messages on the JUNE-Chain.\nThe value for chits, for example, is the number of seconds spent handling chits messages per second, over the last 30 seconds.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -995,7 +995,7 @@
         "type": "prometheus",
         "uid": "${node}"
       },
-      "description": "Measures how long each kind of request on the C-Chain takes to handle.\nThe value for chits, for example, is how long, in seconds, it takes to handle a chits message.",
+      "description": "Measures how long each kind of request on the JUNE-Chain takes to handle.\nThe value for chits, for example, is how long, in seconds, it takes to handle a chits message.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1348,7 +1348,7 @@
           "exemplar": true,
           "expr": "avg_over_time(juneomcn_${subnet}_benchlist_benched_weight{job=\"juneogo\"}[15m]) / 10^9",
           "interval": "",
-          "legendFormat": "AVAX Benched",
+          "legendFormat": "JUNE Benched",
           "refId": "A"
         }
       ],
@@ -1360,7 +1360,7 @@
         "type": "prometheus",
         "uid": "${node}"
       },
-      "description": "Measures how many of each kind of message are received per second on the C-Chain.",
+      "description": "Measures how many of each kind of message are received per second on the JUNE-Chain.",
       "fieldConfig": {
         "defaults": {
           "color": {

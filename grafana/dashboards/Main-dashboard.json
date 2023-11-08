@@ -269,7 +269,7 @@
             "links": [
                 {
                     "title": "JVM Chain dashboard",
-                    "url": "/d/ceRH2Am7z/x-chain?orgId=1"
+                    "url": "/d/ceRH2Am7z/jvm-chain?orgId=1"
                 }
             ],
             "options": {
@@ -1181,7 +1181,7 @@
             "links": [
                 {
                     "title": "JUNE Chain dashboard",
-                    "url": "/d/Gl1I20mnk/c-chain?orgId=1"
+                    "url": "/d/Gl1I20mnk/JUNE-Chain?orgId=1"
                 }
             ],
             "options": {

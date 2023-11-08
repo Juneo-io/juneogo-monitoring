@@ -1549,7 +1549,7 @@
         "type": "prometheus",
         "uid": "${node}"
       },
-      "description": "Measures how long each database operation is taking on average on C-Chain",
+      "description": "Measures how long each database operation is taking on average on JUNE-Chain",
       "fieldConfig": {
         "defaults": {
           "color": {
