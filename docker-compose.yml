@@ -12,6 +12,7 @@ services:
   grafana:
     image: grafana/grafana
     container_name: grafana
+    user: root
     network_mode: host
     volumes:
       - ./grafana/data:/var/lib/grafana # Grafana data
