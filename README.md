@@ -1,5 +1,7 @@
 # Install instructions
 
+These installation instructions assume that you already have Docker and docker-compose installed on your system. For more information, please refer to their documentation: https://docs.docker.com/get-docker/
+
 ## Important note
 ### for those who set up their JuneoGo node [manually](https://docs.juneo.com/intro/build/set-up-and-connect-a-node-manually) or with the [install script](https://docs.juneo.com/intro/build/set-up-and-connect-a-node):
 
