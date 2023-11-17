@@ -16,8 +16,7 @@ Example:
     static_configs:
       - targets: ['XX.XX.XX.XX:9650']
 ```
-
-If you are running juneogo using docker, you may skip this configuration step entirely.
+If you are running juneogo using [juneogo-docker](https://github.com/Juneo-io/juneogo-docker), you may skip this configuration step.
 
 ## Start Docker Compose :
 
