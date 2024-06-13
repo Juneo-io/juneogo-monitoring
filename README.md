@@ -31,12 +31,21 @@ Example:
 
 If you are not publicly exposting port `9650`, you may skip this step.
 
-## Start Monitoring
+## Start Monitoring with Grafana
 
 ```bash
-docker-compose up -d
+docker-compose -f docker-compose.grafana.yml up -d
 ```
 
 Grafana should be accessible through port 3000, use login: admin and password: admin
 
 Prometheus should be accessible through port 9090.
+
+## Start Monitoring without Grafana (Prometheus only)
+
+```bash
+docker-compose up -d
+```
+
+Prometheus should be accessible through port 9090.
+

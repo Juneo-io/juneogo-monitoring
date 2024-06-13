@@ -26,6 +26,20 @@ services:
       monitoring-network:
           ipv4_address: 192.168.11.5
 
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    user: root
+    volumes:
+      - ./grafana/data:/var/lib/grafana # Grafana data
+      - ./grafana/dashboard.yaml:/etc/grafana/provisioning/dashboards/default.yaml
+      - ./grafana/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      monitoring-network:
+        ipv4_address: 192.168.11.6
+      slg-network:
+
 networks:
   monitoring-network:
     driver: bridge
