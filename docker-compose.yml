@@ -1,12 +1,8 @@
 version: '2'
 services:
-
   prometheus:
     image: prom/prometheus
     container_name: prometheus
-    user: root
-    ports:
-      - '9090:9090' # Port for Prometheus UI
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
     volumes:
@@ -16,15 +12,25 @@ services:
       monitoring-network:
         ipv4_address: 192.168.11.4
       slg-network:
-    
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - '9090:80'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/htpasswd:/etc/nginx/htpasswd
+    networks:
+      monitoring-network:
+        ipv4_address: 192.168.11.6
+
   node_exporter:
     image: prom/node-exporter
     container_name: node_exporter
-    ports:
-      - '9100:9100' # Port for Node Exporter
     networks:
       monitoring-network:
-          ipv4_address: 192.168.11.5
+        ipv4_address: 192.168.11.5
 
 networks:
   monitoring-network:
