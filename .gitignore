@@ -1,1 +1,2 @@
-nginx/.htpasswd
+nginx/htpasswd
+prometheus/data
