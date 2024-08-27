@@ -1,9 +1,9 @@
 version: '2'
 services:
-
   prometheus:
     image: prom/prometheus
     container_name: prometheus
+    restart: unless-stopped
     user: root
     ports:
       - '9090:9090' # Port for Prometheus UI
@@ -16,15 +16,26 @@ services:
       monitoring-network:
         ipv4_address: 192.168.11.4
       slg-network:
-    
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
+
   node_exporter:
     image: prom/node-exporter
     container_name: node_exporter
+    restart: unless-stopped
     ports:
       - '9100:9100' # Port for Node Exporter
     networks:
       monitoring-network:
-          ipv4_address: 192.168.11.5
+        ipv4_address: 192.168.11.5
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
 
 networks:
   monitoring-network:
