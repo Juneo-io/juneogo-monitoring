@@ -16,6 +16,7 @@ services:
       monitoring-network:
         ipv4_address: 192.168.11.4
       slg-network:
+        ipv4_address: 192.168.10.70
     logging:
       driver: 'json-file'
       options:
