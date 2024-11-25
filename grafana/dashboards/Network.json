@@ -28,9 +28,7 @@
   "links": [
     {
       "icon": "external link",
-      "tags": [
-        "Juneo"
-      ],
+      "tags": ["Juneo"],
       "type": "dashboards"
     }
   ],
@@ -55,7 +53,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Stake weighted average uptime of your node, as reported by network peers. If this falls below 80% node probably won't be rewarded for the current staking period.",
       "fieldConfig": {
@@ -138,11 +136,7 @@
       "id": 59,
       "options": {
         "legend": {
-          "calcs": [
-            "last",
-            "min",
-            "mean"
-          ],
+          "calcs": ["last", "min", "mean"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -156,10 +150,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_network_node_uptime_weighted_average{job=\"juneogo\"}",
+          "expr": "juneomcn_network_node_uptime_weighted_average{job=\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "Uptime average",
           "refId": "A"
@@ -171,7 +165,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Percentage of the stake that view your node as sufficiently online and correct to vote that node be awarded at the end of the staking period.",
       "fieldConfig": {
@@ -250,11 +244,7 @@
       "id": 61,
       "options": {
         "legend": {
-          "calcs": [
-            "last",
-            "min",
-            "mean"
-          ],
+          "calcs": ["last", "min", "mean"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -268,10 +258,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_network_node_uptime_rewarding_stake{job=\"juneogo\"}",
+          "expr": "juneomcn_network_node_uptime_rewarding_stake{job=\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "Rewarding stake",
           "refId": "A"
@@ -286,20 +276,14 @@
         "conditions": [
           {
             "evaluator": {
-              "params": [
-                100
-              ],
+              "params": [100],
               "type": "lt"
             },
             "operator": {
               "type": "and"
             },
             "query": {
-              "params": [
-                "B",
-                "5m",
-                "now"
-              ]
+              "params": ["B", "5m", "now"]
             },
             "reducer": {
               "params": [],
@@ -319,7 +303,7 @@
       },
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of network peers the node is connected to",
       "fieldConfig": {
@@ -381,11 +365,7 @@
       "id": 4,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "min"
-          ],
+          "calcs": ["mean", "max", "min"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -400,10 +380,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_network_peers{job=\"juneogo\"}",
+          "expr": "juneomcn_network_peers{job=\"juneogo\",server=\"$node\"}",
           "format": "time_series",
           "interval": "",
           "legendFormat": "Peers connected",
@@ -416,7 +396,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Shows the amount of time this node will wait for a response to a request before considering the request failed, and the average time it takes to get a response to a request.",
       "fieldConfig": {
@@ -481,10 +461,7 @@
       "id": 12,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -499,10 +476,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_requests_current_timeout",
+          "expr": "juneomcn_requests_current_timeout{job=\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "Timeout",
           "refId": "A"
@@ -510,10 +487,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_requests_average_latency",
+          "expr": "juneomcn_requests_average_latency{job=\"juneogo\",server=\"$node\"}",
           "hide": false,
           "interval": "",
           "legendFormat": "Response Time",
@@ -526,7 +503,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of outstanding requests related to consensus/bootstrapping. Doesn't include handshake messages.",
       "fieldConfig": {
@@ -590,10 +567,7 @@
       "id": 34,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -607,10 +581,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_requests_outstanding",
+          "expr": "juneomcn_requests_outstanding{job=\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "Outstanding Requests",
           "refId": "A"
@@ -622,7 +596,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "From all chains",
       "fieldConfig": {
@@ -687,10 +661,7 @@
       "id": 9,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
@@ -707,10 +678,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_accepted_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_accepted_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "accepted",
           "refId": "A"
@@ -718,10 +689,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_accepted_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_accepted_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get accepted",
           "refId": "B"
@@ -729,10 +700,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_accepted_frontier_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_accepted_frontier_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get accepted frontier",
           "refId": "C"
@@ -740,10 +711,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_ancestors_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_ancestors_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get ancestors",
           "refId": "D"
@@ -751,10 +722,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_put_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_put_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "E"
@@ -762,10 +733,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_multi_put_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_multi_put_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "multiput",
           "refId": "F"
@@ -773,10 +744,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_version_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_version_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get version",
           "refId": "G"
@@ -784,10 +755,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_peerlist_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_peerlist_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get peerlist",
           "refId": "H"
@@ -795,10 +766,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_pull_query_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_pull_query_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "pull query",
           "refId": "I"
@@ -806,10 +777,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_push_query_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_push_query_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "push query",
           "refId": "J"
@@ -817,10 +788,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_version_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_version_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "version",
           "refId": "K"
@@ -828,10 +799,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_ping_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_ping_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "ping",
           "refId": "L"
@@ -839,10 +810,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_pong_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_pong_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "pong",
           "refId": "M"
@@ -850,10 +821,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get",
           "refId": "N"
@@ -861,10 +832,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_chits_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_chits_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "chits",
@@ -873,10 +844,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_gossip_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_gossip_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app gossip",
@@ -885,10 +856,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_request_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_request_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app request",
@@ -897,10 +868,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_response_received{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_response_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app response",
@@ -913,7 +884,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "From all chains",
       "fieldConfig": {
@@ -978,10 +949,7 @@
       "id": 6,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
@@ -998,9 +966,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "rate(juneomcn_network_accepted_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_accepted_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "accepted",
           "refId": "A"
@@ -1008,9 +976,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "rate(juneomcn_network_get_accepted_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_accepted_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get accepted",
           "refId": "B"
@@ -1018,9 +986,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "rate(juneomcn_network_get_accepted_frontier_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_accepted_frontier_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get accepted frontier",
           "refId": "C"
@@ -1028,9 +996,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "rate(juneomcn_network_get_ancestors_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_ancestors_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get ancestors",
           "refId": "D"
@@ -1038,9 +1006,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "rate(juneomcn_network_put_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_put_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "E"
@@ -1048,9 +1016,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "rate(juneomcn_network_multi_put_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_multi_put_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "multiput",
           "refId": "F"
@@ -1058,9 +1026,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "rate(juneomcn_network_get_version_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_version_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get version",
           "refId": "G"
@@ -1068,9 +1036,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "rate(juneomcn_network_get_peerlist_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_peerlist_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get peerlist",
           "refId": "H"
@@ -1078,9 +1046,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "rate(juneomcn_network_pull_query_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_pull_query_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "pull query",
           "refId": "I"
@@ -1088,9 +1056,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "rate(juneomcn_network_push_query_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_push_query_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "push query",
           "refId": "J"
@@ -1098,9 +1066,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "rate(juneomcn_network_version_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_version_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "version",
           "refId": "K"
@@ -1108,9 +1076,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "rate(juneomcn_network_ping_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_ping_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "ping",
           "refId": "L"
@@ -1118,9 +1086,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "rate(juneomcn_network_pong_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_pong_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "pong",
           "refId": "M"
@@ -1128,10 +1096,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get",
           "refId": "N"
@@ -1139,10 +1107,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_chits_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_chits_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "chits",
@@ -1151,10 +1119,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_gossip_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_gossip_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app gossip",
@@ -1163,10 +1131,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_request_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_request_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app request",
@@ -1175,10 +1143,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_response_sent{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_response_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app response",
@@ -1191,7 +1159,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "From all chains",
       "fieldConfig": {
@@ -1253,10 +1221,7 @@
       "id": 62,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
@@ -1273,10 +1238,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_accepted_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_accepted_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "accepted",
           "refId": "A"
@@ -1284,10 +1249,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_accepted_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_accepted_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get accepted",
           "refId": "B"
@@ -1295,10 +1260,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_accepted_frontier_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_accepted_frontier_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get accepted frontier",
           "refId": "C"
@@ -1306,10 +1271,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_ancestors_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_ancestors_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get ancestors",
           "refId": "D"
@@ -1317,10 +1282,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_put_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_put_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "E"
@@ -1328,10 +1293,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_multi_put_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_multi_put_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "multiput",
           "refId": "F"
@@ -1339,10 +1304,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_version_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_version_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get version",
           "refId": "G"
@@ -1350,10 +1315,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_peerlist_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_peerlist_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get peerlist",
           "refId": "H"
@@ -1361,10 +1326,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_pull_query_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_pull_query_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "pull query",
           "refId": "I"
@@ -1372,10 +1337,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_push_query_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_push_query_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "push query",
           "refId": "J"
@@ -1383,10 +1348,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_version_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_version_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "version",
           "refId": "K"
@@ -1394,10 +1359,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_ping_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_ping_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "ping",
           "refId": "L"
@@ -1405,10 +1370,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_pong_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_pong_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "pong",
           "refId": "M"
@@ -1416,10 +1381,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get",
           "refId": "N"
@@ -1427,10 +1392,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_chits_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_chits_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "chits",
@@ -1439,10 +1404,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_gossip_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_gossip_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app gossip",
@@ -1451,10 +1416,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_request_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_request_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app request",
@@ -1463,10 +1428,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_response_received_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_response_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app response",
@@ -1540,10 +1505,7 @@
       "id": 63,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
@@ -1562,7 +1524,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_accepted_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_accepted_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "accepted",
           "refId": "A"
@@ -1572,7 +1534,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_accepted_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_accepted_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get accepted",
           "refId": "B"
@@ -1582,7 +1544,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_accepted_frontier_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_accepted_frontier_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get accepted frontier",
           "refId": "C"
@@ -1592,7 +1554,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_ancestors_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_ancestors_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get ancestors",
           "refId": "D"
@@ -1602,7 +1564,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_put_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_put_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "E"
@@ -1612,7 +1574,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_multi_put_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_multi_put_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "multiput",
           "refId": "F"
@@ -1622,7 +1584,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_version_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_version_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get version",
           "refId": "G"
@@ -1632,7 +1594,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_peerlist_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_peerlist_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get peerlist",
           "refId": "H"
@@ -1642,7 +1604,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_pull_query_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_pull_query_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "pull query",
           "refId": "I"
@@ -1652,7 +1614,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_push_query_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_push_query_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "push query",
           "refId": "J"
@@ -1662,7 +1624,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_version_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_version_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "version",
           "refId": "K"
@@ -1672,7 +1634,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_ping_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_ping_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "ping",
           "refId": "L"
@@ -1682,7 +1644,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_pong_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_pong_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "pong",
           "refId": "M"
@@ -1692,7 +1654,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get",
           "refId": "N"
@@ -1702,7 +1664,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_chits_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_chits_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "chits",
@@ -1713,7 +1675,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_gossip_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_gossip_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app gossip",
@@ -1724,7 +1686,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_request_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_request_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app request",
@@ -1735,7 +1697,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_response_sent_bytes{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_response_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app response",
@@ -1809,10 +1771,7 @@
       "id": 64,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
@@ -1831,7 +1790,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_accepted_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_accepted_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_accepted_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_accepted_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "accepted",
           "refId": "A"
@@ -1841,7 +1800,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_get_accepted_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_get_accepted_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_get_accepted_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_get_accepted_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get accepted",
           "refId": "B"
@@ -1851,7 +1810,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_get_accepted_frontier_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_get_accepted_frontier_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_get_accepted_frontier_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_get_accepted_frontier_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get accepted frontier",
           "refId": "C"
@@ -1861,7 +1820,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_get_ancestors_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_get_ancestors_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_get_ancestors_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_get_ancestors_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get ancestors",
           "refId": "D"
@@ -1871,7 +1830,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_put_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_put_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_put_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_put_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "E"
@@ -1881,7 +1840,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_multi_put_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_multi_put_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_multi_put_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_multi_put_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "multiput",
           "refId": "F"
@@ -1891,7 +1850,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_get_version_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_get_version_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_get_version_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_get_version_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get version",
           "refId": "G"
@@ -1901,7 +1860,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_get_peerlist_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_get_peerlist_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_get_peerlist_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_get_peerlist_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get peerlist",
           "refId": "H"
@@ -1911,7 +1870,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_pull_query_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_pull_query_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_pull_query_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_pull_query_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "pull query",
           "refId": "I"
@@ -1921,7 +1880,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_push_query_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_push_query_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_push_query_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_push_query_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "push query",
           "refId": "J"
@@ -1931,7 +1890,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_version_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_version_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_version_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_version_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "version",
           "refId": "K"
@@ -1941,7 +1900,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_ping_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_ping_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_ping_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_ping_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "ping",
           "refId": "L"
@@ -1951,7 +1910,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_pong_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_pong_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_pong_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_pong_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "pong",
           "refId": "M"
@@ -1961,7 +1920,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_get_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_get_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_get_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_get_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get",
           "refId": "N"
@@ -1971,7 +1930,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_chits_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_chits_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_chits_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_chits_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "chits",
@@ -1982,7 +1941,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_app_gossip_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_app_gossip_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_app_gossip_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_app_gossip_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app gossip",
@@ -1993,7 +1952,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_app_request_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_app_request_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_app_request_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_app_request_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app request",
@@ -2004,7 +1963,7 @@
             "type": "prometheus"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_app_response_received_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_app_response_received{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_app_response_received_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_app_response_received{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app response",
@@ -2017,7 +1976,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "From all chains",
       "fieldConfig": {
@@ -2079,10 +2038,7 @@
       "id": 65,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
@@ -2099,10 +2055,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_accepted_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_accepted_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_accepted_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_accepted_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "accepted",
           "refId": "A"
@@ -2110,10 +2066,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_get_accepted_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_get_accepted_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_get_accepted_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_get_accepted_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get accepted",
           "refId": "B"
@@ -2121,10 +2077,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_get_accepted_frontier_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_get_accepted_frontier_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_get_accepted_frontier_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_get_accepted_frontier_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get accepted frontier",
           "refId": "C"
@@ -2132,10 +2088,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_get_ancestors_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_get_ancestors_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_get_ancestors_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_get_ancestors_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get ancestors",
           "refId": "D"
@@ -2143,10 +2099,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_put_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_put_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_put_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_put_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "E"
@@ -2154,10 +2110,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_multi_put_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_multi_put_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_multi_put_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_multi_put_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "multiput",
           "refId": "F"
@@ -2165,10 +2121,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_get_version_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_get_version_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_get_version_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_get_version_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get version",
           "refId": "G"
@@ -2176,10 +2132,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_get_peerlist_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_get_peerlist_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_get_peerlist_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_get_peerlist_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get peerlist",
           "refId": "H"
@@ -2187,10 +2143,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_pull_query_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_pull_query_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_pull_query_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_pull_query_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "pull query",
           "refId": "I"
@@ -2198,10 +2154,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_push_query_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_push_query_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_push_query_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_push_query_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "push query",
           "refId": "J"
@@ -2209,10 +2165,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_version_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_version_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_version_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_version_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "version",
           "refId": "K"
@@ -2220,10 +2176,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_ping_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_ping_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_ping_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_ping_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "ping",
           "refId": "L"
@@ -2231,10 +2187,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_pong_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_pong_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_pong_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_pong_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "pong",
           "refId": "M"
@@ -2242,10 +2198,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_get_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_get_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_get_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_get_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get",
           "refId": "N"
@@ -2253,10 +2209,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_chits_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_chits_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_chits_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_chits_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "chits",
@@ -2265,10 +2221,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_app_gossip_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_app_gossip_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_app_gossip_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_app_gossip_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app gossip",
@@ -2277,10 +2233,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_app_request_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_app_request_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_app_request_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_app_request_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app request",
@@ -2289,10 +2245,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_app_response_sent_bytes{job=\"juneogo\"}[1m])/increase(juneomcn_network_app_response_sent{job=\"juneogo\"}[1m])",
+          "expr": "increase(juneomcn_network_app_response_sent_bytes{job=\"juneogo\",server=\"$node\"}[1m])/increase(juneomcn_network_app_response_sent{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app response",
@@ -2305,7 +2261,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Considers the JVM-Chain, P-Chain and JUNE-Chain. A lower value indicates vote pipelining (good.) A higher value indicates failed polls (not good.)",
       "fieldConfig": {
@@ -2363,7 +2319,7 @@
               "options": {
                 "mode": "exclude",
                 "names": [
-                  "Queries per Accepted Container {instance=\"localhost:9650\", job=\"juneogo\"}"
+                  "Queries per Accepted Container {instance=\"localhost:9650\", job=\"juneogo\",server=\"$node\"}"
                 ],
                 "prefix": "All except:",
                 "readOnly": true
@@ -2391,11 +2347,7 @@
       "id": 45,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "last"
-          ],
+          "calcs": ["mean", "max", "last"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -2410,7 +2362,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "refId": "A"
         }
@@ -2421,7 +2373,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of messages that are queued to be sent to peers",
       "fieldConfig": {
@@ -2484,11 +2436,7 @@
       "id": 29,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "last"
-          ],
+          "calcs": ["mean", "max", "last"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -2502,10 +2450,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_network_throttler_outbound_awaiting_release",
+          "expr": "juneomcn_network_throttler_outbound_awaiting_release{job=\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "Messages",
           "refId": "A"
@@ -2517,7 +2465,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Amount of the stake in JUNE that is benched (ignored) because the nodes are unhealthy",
       "fieldConfig": {
@@ -2582,11 +2530,7 @@
       "id": 14,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "last"
-          ],
+          "calcs": ["mean", "max", "last"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -2601,19 +2545,19 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "juneomcn_X_benchlist_benched_weight/1000000000",
+          "expr": "juneomcn_JVM_benchlist_benched_weight{job=\"juneogo\",server=\"$node\"}/1000000000",
           "interval": "",
-          "legendFormat": "X chain",
+          "legendFormat": "JVM chain",
           "refId": "A"
         },
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "juneomcn_P_benchlist_benched_weight/1000000000",
+          "expr": "juneomcn_P_benchlist_benched_weight{job=\"juneogo\",server=\"$node\"}/1000000000",
           "hide": false,
           "interval": "",
           "legendFormat": "P Chain",
@@ -2622,12 +2566,12 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
-          "expr": "juneomcn_JUNE_benchlist_benched_weight/1000000000",
+          "expr": "juneomcn_JUNE_benchlist_benched_weight{job=\"juneogo\",server=\"$node\"}/1000000000",
           "hide": false,
           "interval": "",
-          "legendFormat": "C Chain",
+          "legendFormat": "JUNE Chain",
           "refId": "C"
         }
       ],
@@ -2653,7 +2597,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of messages waiting to acquire bytes from the inbound message throttler.",
       "fieldConfig": {
@@ -2716,11 +2660,7 @@
       "id": 18,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "last"
-          ],
+          "calcs": ["mean", "max", "last"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -2734,10 +2674,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_network_byte_throttler_inbound_awaiting_acquire",
+          "expr": "juneomcn_network_byte_throttler_inbound_awaiting_acquire{job=\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "Messages Awaiting Acquire",
           "refId": "A"
@@ -2749,7 +2689,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of bytes left in the validator byte allocation of the inbound message throttler",
       "fieldConfig": {
@@ -2814,11 +2754,7 @@
       "id": 23,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "last"
-          ],
+          "calcs": ["mean", "max", "last"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -2832,10 +2768,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_network_byte_throttler_inbound_remaining_validator_bytes",
+          "expr": "juneomcn_network_byte_throttler_inbound_remaining_validator_bytes{job=\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "Bytes Remaining",
           "refId": "A"
@@ -2847,7 +2783,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "The amount of time, on average, that we wait to acquire bytes from the throttler before reading a message.",
       "fieldConfig": {
@@ -2908,10 +2844,7 @@
       "id": 16,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -2925,10 +2858,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_byte_throttler_inbound_acquire_latency_sum[2m])/increase(juneomcn_network_byte_throttler_inbound_acquire_latency_count[2m])",
+          "expr": "increase(juneomcn_network_byte_throttler_inbound_acquire_latency_sum{job=\"juneogo\",server=\"$node\"}[2m])/increase(juneomcn_network_byte_throttler_inbound_acquire_latency_count{job=\"juneogo\",server=\"$node\"}[2m])",
           "interval": "",
           "legendFormat": "Acquire",
           "refId": "A"
@@ -2940,7 +2873,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "The amount of time, on average, that we wait to acquire from the throttler before reading a message.",
       "fieldConfig": {
@@ -3001,10 +2934,7 @@
       "id": 50,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -3018,10 +2948,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_buffer_throttler_inbound_acquire_latency_sum[2m])/increase(juneomcn_network_buffer_throttler_inbound_acquire_latency_count[2m])",
+          "expr": "increase(juneomcn_network_buffer_throttler_inbound_acquire_latency_sum{job=\"juneogo\",server=\"$node\"}[2m])/increase(juneomcn_network_buffer_throttler_inbound_acquire_latency_count{job=\"juneogo\",server=\"$node\"}[2m])",
           "interval": "",
           "legendFormat": "Acquire",
           "refId": "A"
@@ -3033,7 +2963,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of messages that are currently being handled and haven't yet returned their bytes to the inbound message throttler.",
       "fieldConfig": {
@@ -3096,11 +3026,7 @@
       "id": 20,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "last"
-          ],
+          "calcs": ["mean", "max", "last"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -3114,10 +3040,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_network_byte_throttler_inbound_awaiting_release",
+          "expr": "juneomcn_network_byte_throttler_inbound_awaiting_release{job=\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "Messages Awaiting Release",
           "refId": "A"
@@ -3129,7 +3055,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of messages waiting to acquire from the inbound message buffer throttler.",
       "fieldConfig": {
@@ -3192,10 +3118,7 @@
       "id": 49,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -3209,10 +3132,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_network_buffer_throttler_inbound_awaiting_acquire",
+          "expr": "juneomcn_network_buffer_throttler_inbound_awaiting_acquire{job=\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "Messages Awaiting",
           "refId": "A"
@@ -3224,7 +3147,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of bytes left in the at-large byte allocation of the inbound message throttler",
       "fieldConfig": {
@@ -3289,10 +3212,7 @@
       "id": 22,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "min"
-          ],
+          "calcs": ["mean", "min"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -3306,10 +3226,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_network_byte_throttler_inbound_remaining_at_large_bytes",
+          "expr": "juneomcn_network_byte_throttler_inbound_remaining_at_large_bytes{job=\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "Remaining Bytes",
           "refId": "A"
@@ -3321,7 +3241,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of messages waiting to acquire bytes from the inbound bandwidth throttler.",
       "fieldConfig": {
@@ -3384,11 +3304,7 @@
       "id": 60,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max",
-            "last"
-          ],
+          "calcs": ["mean", "max", "last"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -3402,10 +3318,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_network_bandwidth_throttler_inbound_awaiting_acquire",
+          "expr": "juneomcn_network_bandwidth_throttler_inbound_awaiting_acquire{job=\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "Messages Awaiting Acquire",
           "refId": "A"
@@ -3433,7 +3349,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of bytes left in the at-large byte allocation of the outbound message throttler",
       "fieldConfig": {
@@ -3498,10 +3414,7 @@
       "id": 30,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "min"
-          ],
+          "calcs": ["mean", "min"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -3515,10 +3428,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_network_throttler_outbound_remaining_at_large_bytes",
+          "expr": "juneomcn_network_throttler_outbound_remaining_at_large_bytes{job=\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "Bytes Remaining",
           "refId": "A"
@@ -3530,7 +3443,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of bytes left in the validator byte allocation of the outbound message throttler",
       "fieldConfig": {
@@ -3591,10 +3504,7 @@
       "id": 31,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "min"
-          ],
+          "calcs": ["mean", "min"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -3608,10 +3518,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "juneomcn_network_throttler_outbound_remaining_validator_bytes",
+          "expr": "juneomcn_network_throttler_outbound_remaining_validator_bytes{job=\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "Bytes Remaining",
           "refId": "A"
@@ -3639,7 +3549,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "From all chains",
       "fieldConfig": {
@@ -3703,10 +3613,7 @@
       "id": 10,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -3721,10 +3628,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_accepted_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_accepted_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "accepted",
           "refId": "A"
@@ -3732,10 +3639,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_accepted_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_accepted_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get accepted",
           "refId": "B"
@@ -3743,10 +3650,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_accepted_frontier_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_accepted_frontier_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get accepted frontier",
           "refId": "C"
@@ -3754,10 +3661,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_ancestors_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_ancestors_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get ancestors",
           "refId": "D"
@@ -3765,10 +3672,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_put_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_put_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "E"
@@ -3776,10 +3683,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_multi_put_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_multi_put_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "multiput",
           "refId": "F"
@@ -3787,10 +3694,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_version_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_version_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get version",
           "refId": "G"
@@ -3798,10 +3705,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_get_peerlist_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_get_peerlist_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "get peerlist",
           "refId": "H"
@@ -3809,10 +3716,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_pull_query_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_pull_query_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "pull query",
           "refId": "I"
@@ -3820,10 +3727,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_push_query_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_push_query_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "push query",
           "refId": "J"
@@ -3831,10 +3738,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_version_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_version_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "version",
           "refId": "K"
@@ -3842,10 +3749,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_ping_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_ping_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "ping",
           "refId": "L"
@@ -3853,10 +3760,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_pong_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_pong_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "pong",
           "refId": "M"
@@ -3864,10 +3771,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_chits_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_chits_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "chits",
@@ -3876,10 +3783,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_gossip_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_gossip_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app gossip",
@@ -3888,10 +3795,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_request_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_request_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app request",
@@ -3900,10 +3807,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_response_failed{job=\"juneogo\"}[1m])",
+          "expr": "rate(juneomcn_network_app_response_failed{job=\"juneogo\",server=\"$node\"}[1m])",
           "hide": false,
           "interval": "",
           "legendFormat": "app response",
@@ -3916,7 +3823,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of messages that could not be parsed because they were of unknown type or invalidly formatted.",
       "fieldConfig": {
@@ -3975,10 +3882,7 @@
       "id": 25,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -3992,10 +3896,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_msgs_failed_to_parse[1m])>0",
+          "expr": "increase(juneomcn_network_msgs_failed_to_parse{job=\"juneogo\",server=\"$node\"}[1m])>0",
           "interval": "",
           "legendFormat": "Failed to Parse",
           "refId": "A"
@@ -4007,7 +3911,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of inbound messages dropped (not processed) due to expiration in last minute.",
       "fieldConfig": {
@@ -4070,10 +3974,7 @@
       "id": 32,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -4087,10 +3988,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_P_handler_expired[1m])+increase(juneomcn_JUNE_handler_expired[1m])+increase(juneomcn_X_handler_expired[1m])",
+          "expr": "increase(juneomcn_P_handler_expired{job=\"juneogo\",server=\"$node\"}[1m])+increase(juneomcn_JUNE_handler_expired{job=\"juneogo\",server=\"$node\"}[1m])+increase(juneomcn_X_handler_expired{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "Messages Dropped",
           "refId": "A"
@@ -4102,7 +4003,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of outbound messages dropped (not sent) due to rate-limiting in the last minute",
       "fieldConfig": {
@@ -4161,10 +4062,7 @@
       "id": 26,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -4178,10 +4076,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_throttler_outbound_acquire_failures[1m])",
+          "expr": "increase(juneomcn_network_throttler_outbound_acquire_failures{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "Messages Dropped",
           "refId": "A"
@@ -4193,7 +4091,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Number of inbound connections dropped due to inbound connection rate-limiting",
       "fieldConfig": {
@@ -4252,10 +4150,7 @@
       "id": 36,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -4269,10 +4164,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_network_inbound_conn_throttler_rate_limited[1m])",
+          "expr": "increase(juneomcn_network_inbound_conn_throttler_rate_limited{job=\"juneogo\",server=\"$node\"}[1m])",
           "interval": "",
           "legendFormat": "Rate-Limited",
           "refId": "A"
@@ -4300,7 +4195,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "",
       "fieldConfig": {
@@ -4378,10 +4273,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "(increase(juneomcn_network_codec_multi_put_compress_time_sum[5m])+1)/(increase(juneomcn_network_codec_multi_put_compress_time_count[5m])+1)",
+          "expr": "(increase(juneomcn_network_codec_multi_put_compress_time_sum{job=\"juneogo\",server=\"$node\"}[5m])+1)/(increase(juneomcn_network_codec_multi_put_compress_time_count{job=\"juneogo\",server=\"$node\"}[5m])+1)",
           "hide": false,
           "interval": "",
           "legendFormat": "Multiput",
@@ -4390,10 +4285,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "(increase(juneomcn_network_codec_push_query_compress_time_sum[5m])+1)/(increase(juneomcn_network_codec_push_query_compress_time_count[5m])+1)",
+          "expr": "(increase(juneomcn_network_codec_push_query_compress_time_sum{job=\"juneogo\",server=\"$node\"}[5m])+1)/(increase(juneomcn_network_codec_push_query_compress_time_count{job=\"juneogo\",server=\"$node\"}[5m])+1)",
           "hide": false,
           "interval": "",
           "legendFormat": "Push Query",
@@ -4402,10 +4297,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "(increase(juneomcn_network_codec_put_compress_time_sum[5m])+1)/(increase(juneomcn_network_codec_put_compress_time_count[5m])+1)",
+          "expr": "(increase(juneomcn_network_codec_put_compress_time_sum{job=\"juneogo\",server=\"$node\"}[5m])+1)/(increase(juneomcn_network_codec_put_compress_time_count{job=\"juneogo\",server=\"$node\"}[5m])+1)",
           "hide": false,
           "interval": "",
           "legendFormat": "Put",
@@ -4414,10 +4309,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "(increase(juneomcn_network_codec_peerlist_compress_time_sum[5m])+1)/(increase(juneomcn_network_codec_peerlist_compress_time_count[5m])+1)",
+          "expr": "(increase(juneomcn_network_codec_peerlist_compress_time_sum{job=\"juneogo\",server=\"$node\"}[5m])+1)/(increase(juneomcn_network_codec_peerlist_compress_time_count{job=\"juneogo\",server=\"$node\"}[5m])+1)",
           "hide": false,
           "interval": "",
           "legendFormat": "Peer List",
@@ -4426,10 +4321,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "(increase(juneomcn_network_codec_app_gossip_compress_time_sum[5m])+1)/(increase(juneomcn_network_codec_app_gossip_compress_time_count[5m])+1)",
+          "expr": "(increase(juneomcn_network_codec_app_gossip_compress_time_sum{job=\"juneogo\",server=\"$node\"}[5m])+1)/(increase(juneomcn_network_codec_app_gossip_compress_time_count{job=\"juneogo\",server=\"$node\"}[5m])+1)",
           "hide": false,
           "interval": "",
           "legendFormat": "App Gossip",
@@ -4438,10 +4333,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "(increase(juneomcn_network_codec_app_request_compress_time_sum[5m])+1)/(increase(juneomcn_network_codec_app_request_compress_time_count[5m])+1)",
+          "expr": "(increase(juneomcn_network_codec_app_request_compress_time_sum{job=\"juneogo\",server=\"$node\"}[5m])+1)/(increase(juneomcn_network_codec_app_request_compress_time_count{job=\"juneogo\",server=\"$node\"}[5m])+1)",
           "hide": false,
           "interval": "",
           "legendFormat": "App Request",
@@ -4450,10 +4345,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "(increase(juneomcn_network_codec_app_response_compress_time_sum[5m])+1)/(increase(juneomcn_network_codec_app_response_compress_time_count[5m])+1)",
+          "expr": "(increase(juneomcn_network_codec_app_response_compress_time_sum{job=\"juneogo\",server=\"$node\"}[5m])+1)/(increase(juneomcn_network_codec_app_response_compress_time_count{job=\"juneogo\",server=\"$node\"}[5m])+1)",
           "hide": false,
           "interval": "",
           "legendFormat": "App Response",
@@ -4466,7 +4361,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "",
       "fieldConfig": {
@@ -4544,10 +4439,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_codec_multi_put_compress_time_sum[5m])",
+          "expr": "rate(juneomcn_network_codec_multi_put_compress_time_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Multiput",
@@ -4556,10 +4451,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_codec_push_query_compress_time_sum[5m])",
+          "expr": "rate(juneomcn_network_codec_push_query_compress_time_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Push Query",
@@ -4568,10 +4463,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_codec_put_compress_time_sum[5m])",
+          "expr": "rate(juneomcn_network_codec_put_compress_time_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Put",
@@ -4580,10 +4475,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_codec_peerlist_compress_time_sum[5m])",
+          "expr": "rate(juneomcn_network_codec_peerlist_compress_time_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Peer List",
@@ -4592,10 +4487,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_codec_app_gossip_compress_time_sum[5m])",
+          "expr": "rate(juneomcn_network_codec_app_gossip_compress_time_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "App Gossip",
@@ -4604,10 +4499,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_codec_app_request_compress_time_sum[5m])",
+          "expr": "rate(juneomcn_network_codec_app_request_compress_time_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "App Request",
@@ -4616,10 +4511,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_codec_app_response_compress_time_sum[5m])",
+          "expr": "rate(juneomcn_network_codec_app_response_compress_time_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "App Response",
@@ -4632,7 +4527,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Rate at which we save bytes (don't send/receive them over the network) by compressing messages/receiving compressed messages.",
       "fieldConfig": {
@@ -4696,10 +4591,7 @@
       "id": 38,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -4713,10 +4605,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_multi_put_compression_saved_received_bytes_sum[5m])",
+          "expr": "rate(juneomcn_network_multi_put_compression_saved_received_bytes_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "Inbound Multiput",
           "refId": "A"
@@ -4724,10 +4616,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_multi_put_compression_saved_sent_bytes_sum[5m])",
+          "expr": "rate(juneomcn_network_multi_put_compression_saved_sent_bytes_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Outbound Multiput",
@@ -4736,10 +4628,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_put_compression_saved_received_bytes_sum[5m])",
+          "expr": "rate(juneomcn_network_put_compression_saved_received_bytes_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Inbound Put",
@@ -4748,10 +4640,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_put_compression_saved_sent_bytes_sum[5m])",
+          "expr": "rate(juneomcn_network_put_compression_saved_sent_bytes_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Outbound Put",
@@ -4760,10 +4652,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_push_query_compression_saved_received_bytes_sum[5m])",
+          "expr": "rate(juneomcn_network_push_query_compression_saved_received_bytes_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Inbound Push Query",
@@ -4772,10 +4664,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_push_query_compression_saved_sent_bytes_sum[5m])",
+          "expr": "rate(juneomcn_network_push_query_compression_saved_sent_bytes_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Outbound Push Query",
@@ -4784,10 +4676,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_peerlist_compression_saved_received_bytes_sum[5m])",
+          "expr": "rate(juneomcn_network_peerlist_compression_saved_received_bytes_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Inbound Peer List",
@@ -4796,10 +4688,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_peerlist_compression_saved_sent_bytes_sum[5m])",
+          "expr": "rate(juneomcn_network_peerlist_compression_saved_sent_bytes_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Outbound Peer List",
@@ -4808,10 +4700,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_gossip_compression_saved_received_bytes_sum[5m])",
+          "expr": "rate(juneomcn_network_app_gossip_compression_saved_received_bytes_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Inbound App Gossip",
@@ -4820,10 +4712,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_gossip_compression_saved_sent_bytes_sum[5m])",
+          "expr": "rate(juneomcn_network_app_gossip_compression_saved_sent_bytes_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Outbound App Gossip",
@@ -4832,10 +4724,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_request_compression_saved_received_bytes_sum[5m])",
+          "expr": "rate(juneomcn_network_app_request_compression_saved_received_bytes_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Inbound App Request",
@@ -4844,10 +4736,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_request_compression_saved_sent_bytes_sum[5m])",
+          "expr": "rate(juneomcn_network_app_request_compression_saved_sent_bytes_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Outbound App Request",
@@ -4856,10 +4748,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_response_compression_saved_received_bytes_sum[5m])",
+          "expr": "rate(juneomcn_network_app_response_compression_saved_received_bytes_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Inbound App Response",
@@ -4868,10 +4760,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_network_app_response_compression_saved_sent_bytes_sum[5m])",
+          "expr": "rate(juneomcn_network_app_response_compression_saved_sent_bytes_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Outbound App Response",
@@ -4885,28 +4777,41 @@
   "refresh": "10s",
   "schemaVersion": 38,
   "style": "dark",
-  "tags": [
-    "Juneo"
-  ],
+  "tags": ["Juneo"],
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "socotra1-contabo-1-node",
-          "value": "socotra1-contabo-1-node"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
-        "name": "node",
+        "name": "datasource",
         "options": [],
         "query": "prometheus",
         "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
-        "type": "datasource"
+        "type": "datasource",
+        "current": {
+          "selected": true,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        }
+      },
+      {
+        "name": "node",
+        "type": "query",
+        "datasource": "${datasource}",
+        "query": "label_values(juneomcn_network_node_uptime_weighted_average, server)",
+        "refresh": 1,
+        "includeAll": false,
+        "multi": false,
+        "current": {
+          "selected": true,
+          "text": "auto",
+          "value": "auto"
+        },
+        "options": []
       }
     ]
   },

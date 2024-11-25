@@ -29,9 +29,7 @@
   "links": [
     {
       "icon": "external link",
-      "tags": [
-        "Juneo"
-      ],
+      "tags": ["Juneo"],
       "type": "dashboards"
     }
   ],
@@ -43,20 +41,14 @@
         "conditions": [
           {
             "evaluator": {
-              "params": [
-                60
-              ],
+              "params": [60],
               "type": "gt"
             },
             "operator": {
               "type": "and"
             },
             "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
+              "params": ["A", "5m", "now"]
             },
             "reducer": {
               "params": [],
@@ -81,7 +73,8 @@
         ]
       },
       "datasource": {
-        "type": "prometheus"
+        "type": "prometheus",
+        "uid": "${datasource}"
       },
       "description": "",
       "fieldConfig": {
@@ -149,11 +142,7 @@
       "id": 14,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -167,7 +156,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(1 - avg(irate(node_cpu_seconds_total{job=~\"juneogo-machine\", mode=\"idle\"}[1m])) by (instance)) * 100",
+          "expr": "(1 - avg(irate(node_cpu_seconds_total{job=~\"juneogo-machine\",server=\"$node\", mode=\"idle\"}[1m])) by (instance)) * 100",
           "interval": "",
           "legendFormat": "CPU",
           "refId": "A"
@@ -182,7 +171,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "type": "prometheus"
+        "type": "prometheus",
+        "uid": "${datasource}"
       },
       "description": "",
       "fill": 1,
@@ -223,7 +213,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_hwmon_temp_celsius{chip=\"platform_coretemp_0\"}",
+          "expr": "node_hwmon_temp_celsius{chip=\"platform_coretemp_0\",job=~\"juneogo-machine\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "{{sensor}}",
           "refId": "A"
@@ -262,7 +252,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus"
+        "type": "prometheus",
+        "uid": "${datasource}"
       },
       "description": "Include I/O from applications other than JuneoGo",
       "fieldConfig": {
@@ -328,11 +319,7 @@
       "id": 16,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -345,13 +332,13 @@
       "pluginVersion": "8.0.5",
       "targets": [
         {
-          "expr": "rate(node_network_receive_bytes_total[5m])",
+          "expr": "rate(node_network_receive_bytes_total{job=~\"juneogo-machine\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "Receive {{device}}",
           "refId": "A"
         },
         {
-          "expr": "rate(node_network_transmit_bytes_total[5m])",
+          "expr": "rate(node_network_transmit_bytes_total{job=~\"juneogo-machine\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Transmit {{device}}",
@@ -363,7 +350,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus"
+        "type": "prometheus",
+        "uid": "${datasource}"
       },
       "description": "Includes I/O from applications other than JuneoGo",
       "fieldConfig": {
@@ -425,11 +413,7 @@
       "id": 18,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -443,18 +427,20 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus"
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
-          "expr": "rate(node_disk_read_bytes_total[5m])",
+          "expr": "rate(node_disk_read_bytes_total{job=~\"juneogo-machine\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "Read {{device}}",
           "refId": "A"
         },
         {
           "datasource": {
-            "type": "prometheus"
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
-          "expr": "rate(node_disk_written_bytes_total[5m])",
+          "expr": "rate(node_disk_written_bytes_total{job=~\"juneogo-machine\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Write {{device}}",
@@ -470,20 +456,14 @@
         "conditions": [
           {
             "evaluator": {
-              "params": [
-                90
-              ],
+              "params": [90],
               "type": "gt"
             },
             "operator": {
               "type": "and"
             },
             "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
+              "params": ["A", "5m", "now"]
             },
             "reducer": {
               "params": [],
@@ -505,7 +485,8 @@
         ]
       },
       "datasource": {
-        "type": "prometheus"
+        "type": "prometheus",
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -572,11 +553,7 @@
       "id": 4,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -590,10 +567,11 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus"
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "100 * (node_memory_MemTotal_bytes{job=~\"juneogo-machine\"} - node_memory_MemFree_bytes{job=~\"juneogo-machine\"} - node_memory_Buffers_bytes{job=~\"juneogo-machine\"} - node_memory_Cached_bytes{job=~\"juneogo-machine\"}) / node_memory_MemTotal_bytes{job=~\"juneogo-machine\"}",
+          "expr": "100 * (node_memory_MemTotal_bytes{job=~\"juneogo-machine\",server=\"$node\"} - node_memory_MemFree_bytes{job=~\"juneogo-machine\",server=\"$node\"} - node_memory_Buffers_bytes{job=~\"juneogo-machine\",server=\"$node\"} - node_memory_Cached_bytes{job=~\"juneogo-machine\",server=\"$node\"}) / node_memory_MemTotal_bytes{job=~\"juneogo-machine\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "Memory",
           "refId": "A"
@@ -608,20 +586,14 @@
         "conditions": [
           {
             "evaluator": {
-              "params": [
-                90
-              ],
+              "params": [90],
               "type": "gt"
             },
             "operator": {
               "type": "and"
             },
             "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
+              "params": ["A", "5m", "now"]
             },
             "reducer": {
               "params": [],
@@ -639,7 +611,8 @@
         "notifications": []
       },
       "datasource": {
-        "type": "prometheus"
+        "type": "prometheus",
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -706,11 +679,7 @@
       "id": 2,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -723,7 +692,7 @@
       "pluginVersion": "8.0.5",
       "targets": [
         {
-          "expr": "max(((node_filesystem_size_bytes{job=~\"juneogo-machine\", fstype=~\"ext4|vfat\"} - node_filesystem_free_bytes{job=~\"juneogo-machine\", fstype=~\"ext4|vfat\"}) / node_filesystem_size_bytes{job=~\"juneogo-machine\", fstype=~\"ext4|vfat\"}) * 100) by (instance)",
+          "expr": "max(((node_filesystem_size_bytes{job=~\"juneogo-machine\",server=\"$node\", fstype=~\"ext4|vfat\"} - node_filesystem_free_bytes{job=~\"juneogo-machine\",server=\"$node\", fstype=~\"ext4|vfat\"}) / node_filesystem_size_bytes{job=~\"juneogo-machine\",server=\"$node\", fstype=~\"ext4|vfat\"}) * 100) by (instance)",
           "interval": "",
           "legendFormat": "Disk",
           "refId": "A"
@@ -734,7 +703,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus"
+        "type": "prometheus",
+        "uid": "${datasource}"
       },
       "description": "Number of parallel execution threads in the client runtime",
       "fieldConfig": {
@@ -796,10 +766,7 @@
       "id": 22,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -812,10 +779,11 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus"
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "juneomcn_go_goroutines{job=~\"juneogo\"}",
+          "expr": "juneomcn_go_goroutines{job=~\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "goroutines",
           "range": true,
@@ -827,7 +795,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus"
+        "type": "prometheus",
+        "uid": "${datasource}"
       },
       "description": "Number of open file handles the client is keeping",
       "fieldConfig": {
@@ -889,10 +858,7 @@
       "id": 24,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -905,21 +871,23 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus"
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "juneomcn_process_open_fds{job=~\"juneogo\"}",
+          "expr": "juneomcn_process_open_fds{job=~\"juneogo\",server=\"$node\"}",
           "legendFormat": "Open files",
           "range": true,
           "refId": "A"
         },
         {
           "datasource": {
-            "type": "prometheus"
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "juneomcn_process_max_fds{job=~\"juneogo\"}",
+          "expr": "juneomcn_process_max_fds{job=~\"juneogo\",server=\"$node\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "Max number allowed",
@@ -934,28 +902,41 @@
   "refresh": "10s",
   "schemaVersion": 38,
   "style": "dark",
-  "tags": [
-    "Juneo"
-  ],
+  "tags": ["Juneo"],
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "socotra1-contabo-1-node",
-          "value": "socotra1-contabo-1-node"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
-        "name": "node",
+        "name": "datasource",
         "options": [],
         "query": "prometheus",
         "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
-        "type": "datasource"
+        "type": "datasource",
+        "current": {
+          "selected": true,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        }
+      },
+      {
+        "name": "node",
+        "type": "query",
+        "datasource": "${datasource}",
+        "query": "label_values(juneomcn_network_node_uptime_weighted_average, server)",
+        "refresh": 1,
+        "includeAll": false,
+        "multi": false,
+        "current": {
+          "selected": true,
+          "text": "auto",
+          "value": "auto"
+        },
+        "options": []
       }
     ]
   },

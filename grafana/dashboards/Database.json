@@ -28,9 +28,7 @@
   "links": [
     {
       "icon": "external link",
-      "tags": [
-        "Juneo"
-      ],
+      "tags": ["Juneo"],
       "type": "dashboards"
     }
   ],
@@ -39,7 +37,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Database read rate. Note that these reads may be from caches and not from disk.",
       "fieldConfig": {
@@ -104,10 +102,7 @@
       "id": 13,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -122,10 +117,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_db_read_size_sum{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_db_read_size_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "hide": false,
           "interval": "",
           "legendFormat": "Bytes Read",
@@ -138,7 +133,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Database write rate.",
       "fieldConfig": {
@@ -203,10 +198,7 @@
       "id": 14,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "max"
-          ],
+          "calcs": ["mean", "max"],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -221,10 +213,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_db_write_size_sum{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_db_write_size_sum{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "Write Rate",
           "refId": "A"
@@ -236,7 +228,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Measures how many of each database operation is performed each second across all chains",
       "fieldConfig": {
@@ -301,11 +293,7 @@
       "id": 2,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -320,10 +308,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_db_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_db_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "A"
@@ -331,10 +319,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_db_get_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_db_get_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "get",
           "refId": "B"
@@ -342,10 +330,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_db_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_db_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "delete",
           "refId": "C"
@@ -353,10 +341,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_db_has_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_db_has_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "has",
           "refId": "D"
@@ -364,10 +352,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_db_compact_size_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_db_compact_size_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "compact",
           "refId": "E"
@@ -375,10 +363,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_db_batch_put_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_db_batch_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch put",
           "refId": "F"
@@ -386,10 +374,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_db_batch_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_db_batch_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch delete",
           "refId": "G"
@@ -397,10 +385,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_db_batch_reset_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_db_batch_reset_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch reset",
           "refId": "H"
@@ -408,10 +396,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_db_batch_replay_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_db_batch_replay_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch replay",
           "refId": "I"
@@ -423,7 +411,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Measures how long each database operation is taking on average",
       "fieldConfig": {
@@ -489,11 +477,7 @@
       "id": 5,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -508,10 +492,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_db_put_sum{job=\"juneogo\"}[5m])/increase(juneomcn_db_put_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_db_put_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_db_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "A"
@@ -519,10 +503,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_db_get_sum{job=\"juneogo\"}[5m])/increase(juneomcn_db_get_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_db_get_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_db_get_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "get",
           "refId": "B"
@@ -530,10 +514,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_db_delete_sum{job=\"juneogo\"}[5m])/increase(juneomcn_db_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_db_delete_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_db_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "delete",
           "refId": "C"
@@ -541,10 +525,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_db_has_sum{job=\"juneogo\"}[5m])/increase(juneomcn_db_has_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_db_has_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_db_has_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "has",
           "refId": "D"
@@ -552,10 +536,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_db_compact_size_sum{job=\"juneogo\"}[5m])/increase(juneomcn_db_compact_size_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_db_compact_size_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_db_compact_size_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "compact",
           "refId": "E"
@@ -563,10 +547,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_db_batch_put_sum{job=\"juneogo\"}[5m])/increase(juneomcn_db_batch_put_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_db_batch_put_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_db_batch_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch put",
           "refId": "F"
@@ -574,10 +558,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_db_batch_delete_sum{job=\"juneogo\"}[5m])/increase(juneomcn_db_batch_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_db_batch_delete_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_db_batch_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch delete",
           "refId": "G"
@@ -585,10 +569,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_db_batch_reset_sum{job=\"juneogo\"}[5m])/increase(juneomcn_db_batch_reset_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_db_batch_reset_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_db_batch_reset_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch reset",
           "refId": "H"
@@ -596,10 +580,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_db_batch_replay_sum{job=\"juneogo\"}[5m])/increase(juneomcn_db_batch_replay_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_db_batch_replay_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_db_batch_replay_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch replay",
           "refId": "I"
@@ -611,7 +595,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Measures how many of each database operation is performed each second on JVM-Chain",
       "fieldConfig": {
@@ -676,11 +660,7 @@
       "id": 6,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -695,10 +675,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JVM_db_put_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JVM_db_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "A"
@@ -706,10 +686,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JVM_db_get_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JVM_db_get_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "get",
           "refId": "B"
@@ -717,10 +697,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JVM_db_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JVM_db_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "delete",
           "refId": "C"
@@ -728,10 +708,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JVM_db_has_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JVM_db_has_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "has",
           "refId": "D"
@@ -739,10 +719,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JVM_db_compact_size_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JVM_db_compact_size_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "compact",
           "refId": "E"
@@ -750,10 +730,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JVM_db_batch_put_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JVM_db_batch_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch put",
           "refId": "F"
@@ -761,10 +741,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JVM_db_batch_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JVM_db_batch_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch delete",
           "refId": "G"
@@ -772,10 +752,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JVM_db_batch_reset_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JVM_db_batch_reset_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch reset",
           "refId": "H"
@@ -783,10 +763,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JVM_db_batch_replay_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JVM_db_batch_replay_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch replay",
           "refId": "I"
@@ -798,7 +778,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Measures how long each database operation is taking on average on JVM-Chain",
       "fieldConfig": {
@@ -864,11 +844,7 @@
       "id": 7,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -883,10 +859,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JVM_db_put_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JVM_db_put_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JVM_db_put_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JVM_db_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "A"
@@ -894,10 +870,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JVM_db_get_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JVM_db_get_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JVM_db_get_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JVM_db_get_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "get",
           "refId": "B"
@@ -905,10 +881,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JVM_db_delete_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JVM_db_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JVM_db_delete_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JVM_db_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "delete",
           "refId": "C"
@@ -916,10 +892,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JVM_db_has_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JVM_db_has_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JVM_db_has_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JVM_db_has_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "has",
           "refId": "D"
@@ -927,10 +903,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JVM_db_compact_size_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JVM_db_compact_size_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JVM_db_compact_size_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JVM_db_compact_size_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "compact",
           "refId": "E"
@@ -938,10 +914,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JVM_db_batch_put_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JVM_db_batch_put_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JVM_db_batch_put_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JVM_db_batch_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch put",
           "refId": "F"
@@ -949,10 +925,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JVM_db_batch_delete_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JVM_db_batch_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JVM_db_batch_delete_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JVM_db_batch_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch delete",
           "refId": "G"
@@ -960,10 +936,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JVM_db_batch_reset_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JVM_db_batch_reset_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JVM_db_batch_reset_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JVM_db_batch_reset_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch reset",
           "refId": "H"
@@ -971,10 +947,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JVM_db_batch_replay_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JVM_db_batch_replay_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JVM_db_batch_replay_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JVM_db_batch_replay_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch replay",
           "refId": "I"
@@ -986,7 +962,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Measures how many of each database operation is performed each second on P-Chain",
       "fieldConfig": {
@@ -1051,11 +1027,7 @@
       "id": 8,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -1070,10 +1042,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_P_db_put_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_P_db_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "A"
@@ -1081,10 +1053,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_P_db_get_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_P_db_get_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "get",
           "refId": "B"
@@ -1092,10 +1064,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_P_db_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_P_db_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "delete",
           "refId": "C"
@@ -1103,10 +1075,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_P_db_has_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_P_db_has_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "has",
           "refId": "D"
@@ -1114,10 +1086,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_P_db_compact_size_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_P_db_compact_size_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "compact",
           "refId": "E"
@@ -1125,10 +1097,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_P_db_batch_put_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_P_db_batch_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch put",
           "refId": "F"
@@ -1136,10 +1108,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_P_db_batch_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_P_db_batch_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch delete",
           "refId": "G"
@@ -1147,10 +1119,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_P_db_batch_reset_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_P_db_batch_reset_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch reset",
           "refId": "H"
@@ -1158,10 +1130,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_P_db_batch_replay_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_P_db_batch_replay_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch replay",
           "refId": "I"
@@ -1173,7 +1145,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Measures how long each database operation is taking on average on P-Chain",
       "fieldConfig": {
@@ -1239,11 +1211,7 @@
       "id": 9,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -1258,10 +1226,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_P_db_put_sum{job=\"juneogo\"}[5m])/increase(juneomcn_P_db_put_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_P_db_put_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_P_db_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "A"
@@ -1269,10 +1237,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_P_db_get_sum{job=\"juneogo\"}[5m])/increase(juneomcn_P_db_get_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_P_db_get_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_P_db_get_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "get",
           "refId": "B"
@@ -1280,10 +1248,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_P_db_delete_sum{job=\"juneogo\"}[5m])/increase(juneomcn_P_db_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_P_db_delete_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_P_db_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "delete",
           "refId": "C"
@@ -1291,10 +1259,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_P_db_has_sum{job=\"juneogo\"}[5m])/increase(juneomcn_P_db_has_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_P_db_has_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_P_db_has_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "has",
           "refId": "D"
@@ -1302,10 +1270,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_P_db_compact_size_sum{job=\"juneogo\"}[5m])/increase(juneomcn_P_db_compact_size_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_P_db_compact_size_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_P_db_compact_size_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "compact",
           "refId": "E"
@@ -1313,10 +1281,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_P_db_batch_put_sum{job=\"juneogo\"}[5m])/increase(juneomcn_P_db_batch_put_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_P_db_batch_put_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_P_db_batch_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch put",
           "refId": "F"
@@ -1324,10 +1292,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_P_db_batch_delete_sum{job=\"juneogo\"}[5m])/increase(juneomcn_P_db_batch_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_P_db_batch_delete_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_P_db_batch_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch delete",
           "refId": "G"
@@ -1335,10 +1303,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_P_db_batch_reset_sum{job=\"juneogo\"}[5m])/increase(juneomcn_P_db_batch_reset_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_P_db_batch_reset_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_P_db_batch_reset_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch reset",
           "refId": "H"
@@ -1346,10 +1314,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_P_db_batch_replay_sum{job=\"juneogo\"}[5m])/increase(juneomcn_P_db_batch_replay_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_P_db_batch_replay_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_P_db_batch_replay_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch replay",
           "refId": "I"
@@ -1361,7 +1329,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Measures how many of each database operation is performed each second across all chains",
       "fieldConfig": {
@@ -1425,11 +1393,7 @@
       "id": 10,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -1444,10 +1408,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JUNE_db_put_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JUNE_db_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "A"
@@ -1455,10 +1419,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JUNE_db_get_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JUNE_db_get_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "get",
           "refId": "B"
@@ -1466,10 +1430,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JUNE_db_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JUNE_db_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "delete",
           "refId": "C"
@@ -1477,10 +1441,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JUNE_db_has_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JUNE_db_has_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "has",
           "refId": "D"
@@ -1488,10 +1452,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JUNE_db_compact_size_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JUNE_db_compact_size_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "compact",
           "refId": "E"
@@ -1499,10 +1463,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JUNE_db_batch_put_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JUNE_db_batch_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch put",
           "refId": "F"
@@ -1510,10 +1474,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JUNE_db_batch_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JUNE_db_batch_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch delete",
           "refId": "G"
@@ -1521,10 +1485,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JUNE_db_batch_reset_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JUNE_db_batch_reset_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch reset",
           "refId": "H"
@@ -1532,10 +1496,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "rate(juneomcn_JUNE_db_batch_replay_count{job=\"juneogo\"}[5m])",
+          "expr": "rate(juneomcn_JUNE_db_batch_replay_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch replay",
           "refId": "I"
@@ -1547,7 +1511,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${node}"
+        "uid": "${datasource}"
       },
       "description": "Measures how long each database operation is taking on average on JUNE-Chain",
       "fieldConfig": {
@@ -1612,11 +1576,7 @@
       "id": 11,
       "options": {
         "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -1631,10 +1591,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JUNE_db_put_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JUNE_db_put_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JUNE_db_put_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JUNE_db_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "put",
           "refId": "A"
@@ -1642,10 +1602,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JUNE_db_get_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JUNE_db_get_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JUNE_db_get_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JUNE_db_get_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "get",
           "refId": "B"
@@ -1653,10 +1613,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JUNE_db_delete_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JUNE_db_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JUNE_db_delete_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JUNE_db_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "delete",
           "refId": "C"
@@ -1664,10 +1624,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JUNE_db_has_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JUNE_db_has_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JUNE_db_has_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JUNE_db_has_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "has",
           "refId": "D"
@@ -1675,10 +1635,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JUNE_db_compact_size_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JUNE_db_compact_size_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JUNE_db_compact_size_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JUNE_db_compact_size_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "compact",
           "refId": "E"
@@ -1686,10 +1646,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JUNE_db_batch_put_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JUNE_db_batch_put_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JUNE_db_batch_put_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JUNE_db_batch_put_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch put",
           "refId": "F"
@@ -1697,10 +1657,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JUNE_db_batch_delete_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JUNE_db_batch_delete_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JUNE_db_batch_delete_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JUNE_db_batch_delete_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch delete",
           "refId": "G"
@@ -1708,10 +1668,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JUNE_db_batch_reset_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JUNE_db_batch_reset_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JUNE_db_batch_reset_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JUNE_db_batch_reset_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch reset",
           "refId": "H"
@@ -1719,10 +1679,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${node}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(juneomcn_JUNE_db_batch_replay_sum{job=\"juneogo\"}[5m])/increase(juneomcn_JUNE_db_batch_replay_count{job=\"juneogo\"}[5m])",
+          "expr": "increase(juneomcn_JUNE_db_batch_replay_sum{job=\"juneogo\",server=\"$node\"}[5m])/increase(juneomcn_JUNE_db_batch_replay_count{job=\"juneogo\",server=\"$node\"}[5m])",
           "interval": "",
           "legendFormat": "batch replay",
           "refId": "I"
@@ -1735,28 +1695,41 @@
   "refresh": "10s",
   "schemaVersion": 38,
   "style": "dark",
-  "tags": [
-    "Juneo"
-  ],
+  "tags": ["Juneo"],
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "socotra1-contabo-1-node",
-          "value": "socotra1-contabo-1-node"
-        },
         "hide": 0,
         "includeAll": false,
         "multi": false,
-        "name": "node",
+        "name": "datasource",
         "options": [],
         "query": "prometheus",
         "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
-        "type": "datasource"
+        "type": "datasource",
+        "current": {
+          "selected": true,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        }
+      },
+      {
+        "name": "node",
+        "type": "query",
+        "datasource": "${datasource}",
+        "query": "label_values(juneomcn_network_node_uptime_weighted_average, server)",
+        "refresh": 1,
+        "includeAll": false,
+        "multi": false,
+        "current": {
+          "selected": true,
+          "text": "auto",
+          "value": "auto"
+        },
+        "options": []
       }
     ]
   },
