@@ -6,13 +6,29 @@ scrape_configs:
       - targets: ['prometheus:9090']
 
   - job_name: 'juneogo-machine'
+    metrics_path: '/metrics'
+    scheme: 'https'
+    basic_auth:
+      username: 'TODO'
+      password: 'TODO'
     static_configs:
-      - targets: ['node_exporter:9100']
+      - targets: ['your-domain.com']
+        labels:
+          server: 'your-server-name'
+      - targets: ['your-domain-2.com']
+        labels:
+          server: 'your-server-name-2'
 
-  - job_name: "juneogo"
-    metrics_path: "/ext/metrics"
-    scheme: "http"
-    tls_config:
-      insecure_skip_verify: true
+  - job_name: 'juneogo'
+    metrics_path: '/ext/metrics'
+    scheme: 'https'
+    basic_auth:
+      username: 'TODO'
+      password: 'TODO'
     static_configs:
-      - targets: ['192.168.10.2:9650']
+      - targets: ['your-domain.com']
+        labels:
+          server: 'your-server-name'
+      - targets: ['your-domain-2.com']
+        labels:
+          server: 'your-server-name-2'
