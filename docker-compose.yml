@@ -1,37 +1,19 @@
-version: '2'
 services:
   prometheus:
     image: prom/prometheus
     container_name: prometheus
     user: root
+    ports:
+      - '9090:9090' # Port for Prometheus UI
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/data:/prometheus
+
     networks:
       monitoring-network:
         ipv4_address: 192.168.11.4
-      slg-network:
-
-  nginx:
-    image: nginx
-    container_name: nginx
-    ports:
-      - '9090:80'
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/htpasswd:/etc/nginx/htpasswd
-    networks:
-      monitoring-network:
-        ipv4_address: 192.168.11.6
-
-  node_exporter:
-    image: prom/node-exporter
-    container_name: node_exporter
-    networks:
-      monitoring-network:
-        ipv4_address: 192.168.11.5
 
 networks:
   monitoring-network:
@@ -40,7 +22,3 @@ networks:
       config:
         - subnet: 192.168.11.0/24
           gateway: 192.168.11.1
-
-  slg-network:
-    name: juneogo-docker_slg-network
-    external: true

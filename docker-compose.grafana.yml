@@ -1,6 +1,4 @@
-version: '2'
 services:
-
   prometheus:
     image: prom/prometheus
     container_name: prometheus
@@ -12,23 +10,32 @@ services:
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/data:/prometheus
+
     networks:
       monitoring-network:
         ipv4_address: 192.168.11.4
-      slg-network:
-    
-  node_exporter:
-    image: prom/node-exporter
-    container_name: node_exporter
+
+  monitoring-caddy:
+    image: caddy:2.8.4
+    container_name: monitoring-caddy
     ports:
-      - '9100:9100' # Port for Node Exporter
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/caddy_data:/data
+      - ./caddy/caddy_config:/config
+    env_file:
+      - .env
     networks:
       monitoring-network:
-          ipv4_address: 192.168.11.5
+        ipv4_address: 192.168.11.6
 
   grafana:
     image: grafana/grafana
     container_name: grafana
+    ports:
+      - '3000:3000'
     user: root
     volumes:
       - ./grafana/data:/var/lib/grafana # Grafana data
@@ -37,8 +44,7 @@ services:
       - ./grafana/dashboards:/var/lib/grafana/dashboards
     networks:
       monitoring-network:
-        ipv4_address: 192.168.11.6
-      slg-network:
+        ipv4_address: 192.168.11.7
 
 networks:
   monitoring-network:
@@ -47,7 +53,3 @@ networks:
       config:
         - subnet: 192.168.11.0/24
           gateway: 192.168.11.1
-
-  slg-network:
-    name: juneogo-docker_slg-network
-    external: true

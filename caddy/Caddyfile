@@ -1,0 +1,8 @@
+{
+  email your@email.com
+}
+
+your-domain.com {
+    reverse_proxy grafana:3000
+}
+
