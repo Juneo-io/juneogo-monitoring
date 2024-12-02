@@ -1,0 +1,9 @@
+groups:
+  - name: node_status
+    rules:
+      - record: node_list
+        expr: |
+          sum(
+            label_replace(up{job="juneogo"} == 0, "status", "down", "", "") or 
+            label_replace(juneomcn_P_percent_connected{job="juneogo"}, "status", "up", "", "")
+          ) by (server, status)

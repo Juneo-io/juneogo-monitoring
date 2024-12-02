@@ -10,6 +10,7 @@ services:
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/data:/prometheus
+      - ./prometheus/rules.yml:/etc/prometheus/rules.yml
 
     networks:
       monitoring-network:
@@ -42,6 +43,11 @@ services:
       - ./grafana/dashboard.yaml:/etc/grafana/provisioning/dashboards/default.yaml
       - ./grafana/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
       - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/contactPoints.yaml:/etc/grafana/provisioning/alerting/contactPoints.yaml
+      - ./grafana/alertRules.yaml:/etc/grafana/provisioning/alerting/alertRules.yaml
+    env_file:
+      - .env
+
     networks:
       monitoring-network:
         ipv4_address: 192.168.11.7
