@@ -7,7 +7,8 @@ contactPoints:
         type: telegram
         settings:
           bottoken: ${BOT_TOKEN}
-          chatid: ${CHAT_ID}
+          chatid:  |
+            ${CHAT_ID}
           disable_notification: false
           disable_web_page_preview: false
           protect_content: false
