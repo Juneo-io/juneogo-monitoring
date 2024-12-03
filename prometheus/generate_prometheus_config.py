@@ -64,7 +64,7 @@ config = {
             ]
         }
     ],
-    'rule_files': ['/etc/prometheus/rules.yml']
+    'rule_files': ['/app/prometheus/rules.yml']
 }
 
 # Define the output path
