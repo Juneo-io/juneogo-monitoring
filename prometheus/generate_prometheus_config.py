@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 
 import yaml
 from dotenv import load_dotenv
@@ -66,11 +67,24 @@ config = {
     'rule_files': ['/etc/prometheus/rules.yml']
 }
 
-# Generate prometheus.yml with proper indentation
+# Define the output path
+output_dir = Path('prometheus')
+output_file = output_dir / 'prometheus.yml'
+
 try:
-    with open('prometheus/prometheus.yml', 'w') as f:
+    # Ensure the parent directory exists
+    if output_file.is_dir():
+        raise IsADirectoryError(f"The path '{output_file}' exists and is a directory. Please remove or rename it.")
+
+    output_dir.mkdir(parents=True, exist_ok=True)  # Create the directory if it doesn't exist
+
+    # Create or overwrite the prometheus.yml file
+    with open (output_file, 'w') as f:
         yaml.dump(config, f, sort_keys=False, default_flow_style=False, allow_unicode=True)
-    print("prometheus.yml generated successfully.")
+    print(f"{output_file} generated successfully.")
+except IsADirectoryError as e:
+    print(f"Error: {e}")
+    exit(1)
 except Exception as e:
     print(f"Error generating prometheus.yml: {e}")
     exit(1)
