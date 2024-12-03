@@ -5,4 +5,6 @@ grafana/data
 grafana/news
 
 prometheus/data
+prometheus/servers.json
+prometheus/prometheus.yml
 .env

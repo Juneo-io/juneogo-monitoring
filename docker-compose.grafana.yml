@@ -4,17 +4,32 @@ services:
     container_name: prometheus
     user: root
     ports:
-      - '9090:9090' # Port for Prometheus UI
+      - '9090:9090'
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/data:/prometheus
       - ./prometheus/rules.yml:/etc/prometheus/rules.yml
-
+    depends_on:
+      - config-generator
     networks:
       monitoring-network:
         ipv4_address: 192.168.11.4
+
+  config-generator:
+    image: python:3.11-alpine
+    container_name: config-generator
+    working_dir: /app
+    volumes:
+      - ./prometheus:/app/prometheus
+    command: >
+      sh -c "pip install pyyaml python-dotenv && python /app/prometheus/generate_prometheus_config.py && exit 0"
+    env_file:
+      - .env
+    networks:
+      monitoring-network:
+        ipv4_address: 192.168.11.3
 
   monitoring-caddy:
     image: caddy:2.8.4

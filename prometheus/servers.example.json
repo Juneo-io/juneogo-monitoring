@@ -1,0 +1,12 @@
+{
+  "servers": [
+    {
+      "name": "server1",
+      "target": "server1.mydomain.com"
+    },
+    {
+      "name": "server2",
+      "target": "server2.mydomain.com"
+    }
+  ]
+}
