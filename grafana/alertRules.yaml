@@ -6,26 +6,57 @@ groups:
       interval: 1m
       rules:
         - uid: stake_rule
-          title: Stake Rule
-          condition: C
+          title: stake_rule
+          condition: TRESH
           data:
-            - refId: A
+            - refId: STAKE
               relativeTimeRange:
-                from: 600
+                from: 10
                 to: 0
               datasourceUid: JuneogoPrometheus
               model:
                 editorMode: code
-                expr: node_list{status="down"} or (node_list{status="up"} < 0.9)
-                instant: true
+                expr: node_list
+                instant: false
                 intervalMs: 1000
                 legendFormat: __auto
                 maxDataPoints: 43200
-                range: false
-                refId: A
-            - refId: C
+                range: true
+                refId: STAKE
+            - refId: RED
               relativeTimeRange:
-                from: 600
+                from: 10
+                to: 0
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: avg
+                      type: query
+                datasource:
+                    name: Expression
+                    type: __expr__
+                    uid: __expr__
+                expression: STAKE
+                hide: false
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: RED
+                type: reduce
+            - refId: TRESH
+              relativeTimeRange:
+                from: 10
                 to: 0
               datasourceUid: __expr__
               model:
@@ -33,33 +64,33 @@ groups:
                     - evaluator:
                         params:
                             - 0.9
+                            - 0
                         type: lt
                       operator:
                         type: and
                       query:
-                        params:
-                            - C
+                        params: []
                       reducer:
                         params: []
-                        type: last
+                        type: avg
                       type: query
                 datasource:
+                    name: Expression
                     type: __expr__
                     uid: __expr__
-                expression: A
+                expression: RED
+                hide: false
                 intervalMs: 1000
                 maxDataPoints: 43200
-                refId: C
+                refId: TRESH
                 type: threshold
           noDataState: NoData
           execErrState: Error
           for: 1m
-          annotations:
-            description: ""
-            runbook_url: ""
-            summary: ""
-          labels:
-            "": ""
+          annotations: 
+            Value: "{{ $values.RED }}"
+          labels: {}
           isPaused: false
           notification_settings:
             receiver: telegram-contact-point
+            repeat_interval: 1m

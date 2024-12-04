@@ -6,10 +6,28 @@ contactPoints:
       - uid: telegram-receiver
         type: telegram
         settings:
+          parse_mode: HTML
           bottoken: ${BOT_TOKEN}
           chatid:  |
             ${CHAT_ID}
-          disable_notification: false
-          disable_web_page_preview: false
-          protect_content: false
+          disable_web_page_preview: true
+          message: |
+            {{ if gt (len .Alerts.Firing) 0 }}              
+              🚨 <b>Firing</b> (#{{ .Alerts.Firing | len }}) Servers 🚨 :{{ range .Alerts.Firing }}
+                ------------------------------------------
+                <b>{{ index .Labels "alertname" }}</b> 🕙 {{ .StartsAt.Format "15:04:05 🗓️ 2006-01-02" }}
+                <b>Server:</b> <b>{{ .Labels.server }}</b>
+                <b>Status:</b> {{ .Labels.status }}
+                <b>Value:</b> {{ .Annotations.Value }}
+                {{ if gt (len .SilenceURL) 0 }}<a href="{{ .SilenceURL }}">🔕 silence</a>{{ end }}
+              {{ end }}
+            {{ end }}
+            {{ if gt (len .Alerts.Resolved) 0 }}
+              ✅ <b>Resolved</b> (#{{ .Alerts.Resolved | len }}) Servers ✅ :{{ range .Alerts.Resolved }}
+                ------------------------------------------
+                <b>{{ index .Labels "alertname" }}</b> 🕙 {{ .EndsAt.Format "15:04:05 🗓️ 2006-01-02" }}
+                <b>Server:</b> <b>{{ .Labels.server }}</b>
+                {{ if gt (len .SilenceURL) 0 }}<a href="{{ .SilenceURL }}">🔕 silence</a>{{ end }}
+              {{ end }}
+            {{ end }}
         disableResolveMessage: false
