@@ -1,19 +1,57 @@
 services:
   prometheus:
-    image: prom/prometheus
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: prometheus
     user: root
-    ports:
-      - '9090:9090' # Port for Prometheus UI
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
+    # ports:
+    #   - '9090:9090' # Uncomment to use without HTTPS
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus:/app/prometheus
       - ./prometheus/data:/prometheus
-
+      - ./prometheus/rules.yml:/app/prometheus/rules.yml
+    env_file:
+      - .env
     networks:
       monitoring-network:
         ipv4_address: 192.168.11.4
+
+  monitoring-caddy:
+    image: caddy:2.8.4
+    container_name: monitoring-caddy
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/caddy_data:/data
+      - ./caddy/caddy_config:/config
+    env_file:
+      - .env
+    networks:
+      monitoring-network:
+        ipv4_address: 192.168.11.6
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    # ports:
+    #   - '3000:3000' # Uncomment tho use without HTTPS
+    user: root
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+      - ./grafana/dashboard.yaml:/etc/grafana/provisioning/dashboards/default.yaml
+      - ./grafana/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/contactPoints.yaml:/etc/grafana/provisioning/alerting/contactPoints.yaml
+      - ./grafana/alertRules.yaml:/etc/grafana/provisioning/alerting/alertRules.yaml
+    env_file:
+      - .env
+
+    networks:
+      monitoring-network:
+        ipv4_address: 192.168.11.7
 
 networks:
   monitoring-network:
