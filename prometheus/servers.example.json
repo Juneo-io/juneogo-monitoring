@@ -2,11 +2,13 @@
   "servers": [
     {
       "name": "server1",
-      "target": "server1.mydomain.com"
+      "target": "server1.mydomain.com",
+      "ip": "10.10.10.1"
     },
     {
       "name": "server2",
-      "target": "server2.mydomain.com"
+      "target": "server2.mydomain.com",
+      "ip": "10.10.10.2"
     }
   ]
 }
