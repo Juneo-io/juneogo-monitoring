@@ -1,8 +1,8 @@
 {
-  email your@email.com
+  email {$CADDY_EMAIL}
 }
 
-your-domain.com {
+{$CADDY_DOMAIN} {
     reverse_proxy grafana:3000
 }
 
