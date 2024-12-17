@@ -969,7 +969,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "juneomcn_P_vm_percent_connected{job=\"juneogo\",server=\"$node\"}",
+          "expr": "juneomcn_P_percent_connected{job=\"juneogo\",server=\"$node\"}",
           "interval": "",
           "legendFormat": "",
           "range": true,
