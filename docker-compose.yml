@@ -9,7 +9,6 @@ services:
     #   - '9090:9090' # Uncomment to use without HTTPS
     volumes:
       - ./prometheus:/app/prometheus
-      - ./prometheus/data:/prometheus
       - ./prometheus/rules.yml:/app/prometheus/rules.yml
     env_file:
       - .env
