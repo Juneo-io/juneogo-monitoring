@@ -1,13 +1,25 @@
 apiVersion: 1
 
 datasources:
-  - name: Prometheus
+
+  - name: Mainnet
     type: prometheus
     access: proxy
-    url: http://prometheus:9090
-    isDefault: true
+    url: http://prometheus-mainnet:9090
     editable: true
     jsonData:
       timeInterval: '5s'
     version: 1
-    uid: "JuneogoPrometheus"
+    uid: "JuneogoPrometheusMainnet"
+    
+  - name: Socotra
+    type: prometheus
+    access: proxy
+    url: http://prometheus-socotra:9090
+    editable: true
+    jsonData:
+      timeInterval: '5s'
+    version: 1
+    uid: "JuneogoPrometheusSocotra"
+  
+

@@ -10,16 +10,18 @@ load_dotenv()
 
 CADDY_USER = os.getenv('CADDY_USER')
 CADDY_PASSWORD = os.getenv('CADDY_PASSWORD')
+PROMETHEUS_CONFIG_DIR = os.getenv('PROMETHEUS_CONFIG_DIR', '/app/prometheus/socotra')
 
 if not CADDY_USER or not CADDY_PASSWORD:
     raise ValueError("CADDY_USER or CADDY_PASSWORD variables are not defined in .env")
 
 # Load servers from servers.json
 try:
-    with open('prometheus/servers.json', 'r') as f:
+    servers_json_path = Path(PROMETHEUS_CONFIG_DIR) / 'servers.json'
+    with open(servers_json_path, 'r') as f:
         servers = json.load(f)['servers']
 except FileNotFoundError:
-    raise FileNotFoundError("Error: servers.json not found")
+    raise FileNotFoundError(f"Error: servers.json not found at {servers_json_path}")
 
 # Prometheus configuration template
 config = {
@@ -68,7 +70,7 @@ config = {
 }
 
 # Define the output path
-output_dir = Path('prometheus')
+output_dir = Path(PROMETHEUS_CONFIG_DIR)
 output_file = output_dir / 'prometheus.yml'
 
 try:

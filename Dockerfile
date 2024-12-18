@@ -19,6 +19,6 @@ RUN curl -LO https://github.com/prometheus/prometheus/releases/download/v3.0.1/p
 WORKDIR /app
 
 # Step 6: Command to generate configuration and start Prometheus
-CMD sh -c "/venv/bin/python /app/prometheus/generate_prometheus_config.py && \
-    /venv/bin/python /app/prometheus/add_subdomains.py && \
-    prometheus --config.file=/app/prometheus/prometheus.yml --storage.tsdb.path=/app/prometheus/data"
+CMD sh -c "/venv/bin/python /app/prometheus/common/generate_prometheus_config.py && \
+    /venv/bin/python /app/prometheus/common/add_subdomains.py && \
+    prometheus --config.file=${PROMETHEUS_CONFIG_DIR}/prometheus.yml --storage.tsdb.path=${PROMETHEUS_CONFIG_DIR}/data"

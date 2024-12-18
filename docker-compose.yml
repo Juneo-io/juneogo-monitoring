@@ -1,20 +1,43 @@
 services:
-  prometheus:
+  prometheus-socotra:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: prometheus
+    container_name: prometheus-socotra
     user: root
     # ports:
     #   - '9090:9090' # Uncomment to use without HTTPS
     volumes:
-      - ./prometheus:/app/prometheus
-      - ./prometheus/rules.yml:/app/prometheus/rules.yml
+      - ./prometheus/socotra:/app/prometheus/socotra
+      - ./prometheus/common:/app/prometheus/common
+      - ./prometheus/common/rules.yml:/app/prometheus/rules.yml
     env_file:
       - .env
+    environment:
+      - PROMETHEUS_CONFIG_DIR=/app/prometheus/socotra
     networks:
       monitoring-network:
         ipv4_address: 192.168.11.4
+
+  prometheus-mainnet:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: prometheus-mainnet
+    user: root
+    # ports:
+    #   - '9091:9090' # Uncomment to use without HTTPS
+    volumes:
+      - ./prometheus/mainnet:/app/prometheus/mainnet
+      - ./prometheus/common:/app/prometheus/common
+      - ./prometheus/common/rules.yml:/app/prometheus/rules.yml
+    env_file:
+      - .env
+    environment:
+      - PROMETHEUS_CONFIG_DIR=/app/prometheus/mainnet
+    networks:
+      monitoring-network:
+        ipv4_address: 192.168.11.5
 
   monitoring-caddy:
     image: caddy:2.8.4

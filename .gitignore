@@ -4,7 +4,7 @@ caddy/caddy_data
 grafana/data
 grafana/news
 
-prometheus/data
-prometheus/servers.json
-prometheus/prometheus.yml
+**/data
+**/servers.json
+**/prometheus.yml
 .env

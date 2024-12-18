@@ -11,6 +11,7 @@ load_dotenv()
 CLOUDFLARE_READ_TOKEN = os.getenv('CLOUDFLARE_READ_TOKEN')
 # Token for editing DNS in a specific zone
 CLOUDFLARE_WRITE_TOKEN = os.getenv('CLOUDFLARE_WRITE_TOKEN')
+PROMETHEUS_CONFIG_DIR = os.getenv('PROMETHEUS_CONFIG_DIR', '/app/prometheus/socotra')
 
 if not CLOUDFLARE_READ_TOKEN or not CLOUDFLARE_WRITE_TOKEN:
     print("CLOUDFLARE_READ_TOKEN or CLOUDFLARE_WRITE_TOKEN is not defined in .env")
@@ -18,11 +19,12 @@ if not CLOUDFLARE_READ_TOKEN or not CLOUDFLARE_WRITE_TOKEN:
 
 # Load servers from servers.json
 try:
-    with open('prometheus/servers.json', 'r') as f:
+    servers_json_path = os.path.join(PROMETHEUS_CONFIG_DIR, 'servers.json')
+    with open(servers_json_path, 'r') as f:
         servers = json.load(f)['servers']
 except FileNotFoundError:
-    print("Error: servers.json not found")
-    raise FileNotFoundError("Error: servers.json not found")
+    print(f"Error: servers.json not found at {servers_json_path}")
+    raise FileNotFoundError(f"Error: servers.json not found at {servers_json_path}")
 
 # Fetch all zones using the read token
 zones_api_endpoint = "https://api.cloudflare.com/client/v4/zones"
