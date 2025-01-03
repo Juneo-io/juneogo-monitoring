@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: prometheus-socotra
     user: root
+    restart: unless-stopped
     # ports:
     #   - '9090:9090' # Uncomment to use without HTTPS
     volumes:
@@ -15,9 +16,15 @@ services:
       - .env
     environment:
       - PROMETHEUS_CONFIG_DIR=/app/prometheus/socotra
+      - PROMETHEUS_NAME=prometheus-socotra
     networks:
       monitoring-network:
         ipv4_address: 192.168.11.4
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
 
   prometheus-mainnet:
     build:
@@ -25,6 +32,7 @@ services:
       dockerfile: Dockerfile
     container_name: prometheus-mainnet
     user: root
+    restart: unless-stopped
     # ports:
     #   - '9091:9090' # Uncomment to use without HTTPS
     volumes:
@@ -35,13 +43,20 @@ services:
       - .env
     environment:
       - PROMETHEUS_CONFIG_DIR=/app/prometheus/mainnet
+      - PROMETHEUS_NAME=prometheus-mainnet
     networks:
       monitoring-network:
         ipv4_address: 192.168.11.5
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
 
   monitoring-caddy:
     image: caddy:2.8.4
     container_name: monitoring-caddy
+    restart: unless-stopped
     ports:
       - '80:80'
       - '443:443'
@@ -54,6 +69,11 @@ services:
     networks:
       monitoring-network:
         ipv4_address: 192.168.11.6
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
 
   grafana:
     image: grafana/grafana
@@ -61,6 +81,7 @@ services:
     # ports:
     #   - '3000:3000' # Uncomment tho use without HTTPS
     user: root
+    restart: unless-stopped
     volumes:
       - ./grafana/data:/var/lib/grafana
       - ./grafana/dashboard.yaml:/etc/grafana/provisioning/dashboards/default.yaml
@@ -74,6 +95,11 @@ services:
     networks:
       monitoring-network:
         ipv4_address: 192.168.11.7
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
 
 networks:
   monitoring-network:

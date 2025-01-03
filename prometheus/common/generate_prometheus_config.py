@@ -11,6 +11,7 @@ load_dotenv()
 CADDY_USER = os.getenv('CADDY_USER')
 CADDY_PASSWORD = os.getenv('CADDY_PASSWORD')
 PROMETHEUS_CONFIG_DIR = os.getenv('PROMETHEUS_CONFIG_DIR', '/app/prometheus/socotra')
+PROMETHEUS_NAME = os.getenv('PROMETHEUS_NAME')
 
 if not CADDY_USER or not CADDY_PASSWORD:
     raise ValueError("CADDY_USER or CADDY_PASSWORD variables are not defined in .env")
@@ -30,26 +31,26 @@ config = {
     },
     'scrape_configs': [
         {
-            'job_name': 'prometheus',
+            'job_name': PROMETHEUS_NAME,
             'static_configs': [
-                {'targets': ['prometheus:9090']}
+                {'targets': [f'{PROMETHEUS_NAME}:9090']}
             ]
         },
-        {
-            'job_name': 'juneogo-machine',
-            'metrics_path': '/metrics',
-            'scheme': 'https',
-            'basic_auth': {
-                'username': CADDY_USER,
-                'password': CADDY_PASSWORD
-            },
-            'static_configs': [
-                {
-                    'targets': [f"{server['target']}"],
-                    'labels': {'server': server['name']}
-                } for server in servers
-            ]
-        },
+        # {
+        #     'job_name': 'juneogo-machine',
+        #     'metrics_path': '/metrics',
+        #     'scheme': 'https',
+        #     'basic_auth': {
+        #         'username': CADDY_USER,
+        #         'password': CADDY_PASSWORD
+        #     },
+        #     'static_configs': [
+        #         {
+        #             'targets': [f"{server['target']}"],
+        #             'labels': {'server': server['name']}
+        #         } for server in servers
+        #     ]
+        # },
         {
             'job_name': 'juneogo',
             'metrics_path': '/ext/metrics',
@@ -63,6 +64,13 @@ config = {
                     'targets': [f"{server['target']}"],
                     'labels': {'server': server['name']}
                 } for server in servers
+            ],
+            'metric_relabel_configs': [
+                {
+                    'source_labels': ['__name__'],
+                    'regex': 'juneomcn_[A-Za-z0-9]+_vm_eth_(hashdb_memcache_commit_locktime|hashdb_memcache_commit_time|hashdb_memcache_gc_time|state_snapshot_bloom_index)',
+                    'action': 'drop'
+                }
             ]
         }
     ],
