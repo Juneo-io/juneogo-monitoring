@@ -92,7 +92,7 @@ groups:
           labels: {}
           isPaused: false
           notification_settings:
-            receiver: telegram-contact-point
+            receiver: telegram-contact-point-socotra
             repeat_interval: 1m
         - uid: stake_rule_mainnet
           title: stake_rule_mainnet
@@ -181,5 +181,5 @@ groups:
           labels: {}
           isPaused: false
           notification_settings:
-            receiver: telegram-contact-point
+            receiver: telegram-contact-point-mainnet
             repeat_interval: 1m
