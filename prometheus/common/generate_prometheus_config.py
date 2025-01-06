@@ -36,21 +36,21 @@ config = {
                 {'targets': [f'{PROMETHEUS_NAME}:9090']}
             ]
         },
-        # {
-        #     'job_name': 'juneogo-machine',
-        #     'metrics_path': '/metrics',
-        #     'scheme': 'https',
-        #     'basic_auth': {
-        #         'username': CADDY_USER,
-        #         'password': CADDY_PASSWORD
-        #     },
-        #     'static_configs': [
-        #         {
-        #             'targets': [f"{server['target']}"],
-        #             'labels': {'server': server['name']}
-        #         } for server in servers
-        #     ]
-        # },
+        {
+            'job_name': 'juneogo-machine',
+            'metrics_path': '/metrics',
+            'scheme': 'https',
+            'basic_auth': {
+                'username': CADDY_USER,
+                'password': CADDY_PASSWORD
+            },
+            'static_configs': [
+                {
+                    'targets': [f"{server['target']}"],
+                    'labels': {'server': server['name']}
+                } for server in servers
+            ]
+        },
         {
             'job_name': 'juneogo',
             'metrics_path': '/ext/metrics',
