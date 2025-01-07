@@ -8,13 +8,13 @@ from dotenv import load_dotenv
 # Load environment variables from .env
 load_dotenv()
 
-CADDY_USER = os.getenv('CADDY_USER')
-CADDY_PASSWORD = os.getenv('CADDY_PASSWORD')
+PROMETHEUS_USERNAME = os.getenv('PROMETHEUS_USERNAME')
+PROMETHEUS_PASSWORD = os.getenv('PROMETHEUS_PASSWORD')
 PROMETHEUS_CONFIG_DIR = os.getenv('PROMETHEUS_CONFIG_DIR', '/app/prometheus/socotra')
 PROMETHEUS_NAME = os.getenv('PROMETHEUS_NAME')
 
-if not CADDY_USER or not CADDY_PASSWORD:
-    raise ValueError("CADDY_USER or CADDY_PASSWORD variables are not defined in .env")
+if not PROMETHEUS_USERNAME or not PROMETHEUS_PASSWORD:
+    raise ValueError("PROMETHEUS_USERNAME or PROMETHEUS_PASSWORD variables are not defined in .env")
 
 # Load servers from servers.json
 try:
@@ -41,8 +41,8 @@ config = {
             'metrics_path': '/metrics',
             'scheme': 'https',
             'basic_auth': {
-                'username': CADDY_USER,
-                'password': CADDY_PASSWORD
+                'username': PROMETHEUS_USERNAME,
+                'password': PROMETHEUS_PASSWORD
             },
             'static_configs': [
                 {
@@ -56,8 +56,8 @@ config = {
             'metrics_path': '/ext/metrics',
             'scheme': 'https',
             'basic_auth': {
-                'username': CADDY_USER,
-                'password': CADDY_PASSWORD
+                'username': PROMETHEUS_USERNAME,
+                'password': PROMETHEUS_PASSWORD
             },
             'static_configs': [
                 {
