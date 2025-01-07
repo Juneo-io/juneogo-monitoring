@@ -114,9 +114,10 @@ To receive notifications via Telegram, follow these steps:
    CHAT_ID_MAINNET=<your_telegram_chat_id>
    ```
 
-   You can use the same chat id for both Socotra and Mainnet, or use different chat ids for each.
-   Different chat ids can be useful if you want to receive notifications for Socotra on one group and Mainnet on another.
-   If you do not provide Telegram tokens, notifications will not be sent.
+You can use the same chat id for both Socotra and Mainnet, or use different chat ids for each.
+Different chat ids can be useful if you want to receive notifications for Socotra on one group and Mainnet on another.
+
+If you do not provide Telegram tokens, notifications will not be sent.
 
 ## Start Monitoring
 
