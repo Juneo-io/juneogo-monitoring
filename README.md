@@ -24,10 +24,10 @@ If you use secure metrics endpoints, you need to configure Prometheus to use the
    PROMETHEUS_PASSWORD=<your_prometheus_password>
    ```
 
-`PROMETHEUS_USERNAME` is the username to access the Prometheus metrics endpoint.
-`PROMETHEUS_PASSWORD` is the password to access the Prometheus metrics endpoint.
+- `PROMETHEUS_USERNAME`: The username to access the Prometheus metrics endpoint.
+- `PROMETHEUS_PASSWORD`: The password to access the Prometheus metrics endpoint.
 
-Each server need to have the same credentials. If you have different credentials for each server, you need to modify the `prometheus/prometheus.yml` file.
+Each server need to have the same credentials. If you have different credentials for each server, you need to modify the `prometheus.yml` file.
 
 ### Configuring servers.json
 
@@ -72,6 +72,7 @@ To be able to access to Grafana with HTTPS, you need to configure Caddy with you
 1. Add The domain name to your DNS configuration with the IP address of the machine running the monitoring.
 
 2. Create a `.env` file in the root directory of the project with the following variables:
+
    ```env
    CADDY_DOMAIN=<your_domain>
    CADDY_EMAIL=<your_email>
@@ -83,10 +84,12 @@ To be able to access to Grafana with HTTPS, you need to configure Caddy with you
 To automatically manage DNS records for your servers using Cloudflare, follow these steps:
 
 1. Create a `.env` file in the root directory of the project with the following variables:
+
    ```env
    CLOUDFLARE_READ_TOKEN=<your_cloudflare_read_token>
    CLOUDFLARE_WRITE_TOKEN=<your_cloudflare_write_token>
    ```
+
 2. Ensure your both token have access to all target DNS zones present in your `servers.json` file.
 
 3. Ensure your `servers.json` file is correctly populated with your server details (in Socotra and/or Mainnet).
@@ -104,11 +107,13 @@ To receive notifications via Telegram, follow these steps:
 3. Invite the `@getmyid_bot` to the group and get the chat id.
 
 4. Create a `.env` file in the root directory of the project with the following variables:
-   `env
-BOT_TOKEN=<your_telegram_bot_token>
-CHAT_ID_SOCOTRA=<your_telegram_chat_id>
-CHAT_ID_MAINNET=<your_telegram_chat_id>
-`
+
+   ```env
+   BOT_TOKEN=<your_telegram_bot_token>
+   CHAT_ID_SOCOTRA=<your_telegram_chat_id>
+   CHAT_ID_MAINNET=<your_telegram_chat_id>
+   ```
+
    You can use the same chat id for both Socotra and Mainnet, or use different chat ids for each.
    Different chat ids can be useful if you want to receive notifications for Socotra on one group and Mainnet on another.
    If you do not provide Telegram tokens, notifications will not be sent.
