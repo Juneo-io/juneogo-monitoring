@@ -1,37 +1,100 @@
-version: '2'
 services:
-  prometheus:
-    image: prom/prometheus
-    container_name: prometheus
-    restart: unless-stopped
+  prometheus-socotra:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: prometheus-socotra
     user: root
-    ports:
-      - '9090:9090' # Port for Prometheus UI
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
+    restart: unless-stopped
+    # ports:
+    #   - '9090:9090' # Uncomment to use without HTTPS
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./prometheus/data:/prometheus
+      - ./prometheus/socotra:/app/prometheus/socotra
+      - ./prometheus/common:/app/prometheus/common
+      - ./prometheus/common/rules.yml:/app/prometheus/rules.yml
+    env_file:
+      - .env
+    environment:
+      - PROMETHEUS_CONFIG_DIR=/app/prometheus/socotra
+      - PROMETHEUS_NAME=prometheus-socotra
     networks:
       monitoring-network:
         ipv4_address: 192.168.11.4
-      slg-network:
-        ipv4_address: 192.168.10.70
     logging:
       driver: 'json-file'
       options:
         max-size: '10m'
         max-file: '3'
 
-  node_exporter:
-    image: prom/node-exporter
-    container_name: node_exporter
+  prometheus-mainnet:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: prometheus-mainnet
+    user: root
     restart: unless-stopped
-    ports:
-      - '9100:9100' # Port for Node Exporter
+    # ports:
+    #   - '9091:9090' # Uncomment to use without HTTPS
+    volumes:
+      - ./prometheus/mainnet:/app/prometheus/mainnet
+      - ./prometheus/common:/app/prometheus/common
+      - ./prometheus/common/rules.yml:/app/prometheus/rules.yml
+    env_file:
+      - .env
+    environment:
+      - PROMETHEUS_CONFIG_DIR=/app/prometheus/mainnet
+      - PROMETHEUS_NAME=prometheus-mainnet
     networks:
       monitoring-network:
         ipv4_address: 192.168.11.5
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
+
+  monitoring-caddy:
+    image: caddy:2.8.4
+    container_name: monitoring-caddy
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/caddy_data:/data
+      - ./caddy/caddy_config:/config
+    env_file:
+      - .env
+    networks:
+      monitoring-network:
+        ipv4_address: 192.168.11.6
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    # ports:
+    #   - '3000:3000' # Uncomment tho use without HTTPS
+    user: root
+    restart: unless-stopped
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+      - ./grafana/dashboard.yaml:/etc/grafana/provisioning/dashboards/default.yaml
+      - ./grafana/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/contactPoints.yaml:/etc/grafana/provisioning/alerting/contactPoints.yaml
+      - ./grafana/alertRules.yaml:/etc/grafana/provisioning/alerting/alertRules.yaml
+    env_file:
+      - .env
+
+    networks:
+      monitoring-network:
+        ipv4_address: 192.168.11.7
     logging:
       driver: 'json-file'
       options:
@@ -45,7 +108,3 @@ networks:
       config:
         - subnet: 192.168.11.0/24
           gateway: 192.168.11.1
-
-  slg-network:
-    name: juneogo-docker_slg-network
-    external: true
