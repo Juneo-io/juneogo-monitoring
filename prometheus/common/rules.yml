@@ -7,3 +7,14 @@ groups:
             label_replace(up{job="juneogo"} == 0, "status", "down", "", "") or 
             label_replace(juneomcn_P_percent_connected{job="juneogo"}, "status", "up", "", "")
           ) by (server, status)
+      - record: node_list_low_space
+        expr: |
+          min by (server) (
+            label_replace(
+              node_filesystem_free_bytes{fstype!="tmpfs"} / 1e9 < 20, 
+              "status", 
+              "low_space", 
+              "", 
+              ""
+            )
+          )
