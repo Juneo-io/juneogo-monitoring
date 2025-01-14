@@ -18,7 +18,7 @@ contactPoints:
             Alertname: {{ index .Labels "alertname" }}
             Time: {{ .StartsAt.Format "15:04:05 2006-01-02" }}
             Server: {{ .Labels.server }}
-            Status: {{ .Labels.status }}
+            {{ if .Labels.status }}Status: {{ .Labels.status }}{{ end }}
             Value: {{ .Annotations.Value }}
             {{ if gt (len .SilenceURL) 0 }}Silence: {{ .SilenceURL }}{{ end }}
             {{ end }}
@@ -54,7 +54,7 @@ contactPoints:
             Alertname: {{ index .Labels "alertname" }}
             Time: {{ .StartsAt.Format "15:04:05 2006-01-02" }}
             Server: {{ .Labels.server }}
-            Status: {{ .Labels.status }}
+            {{ if .Labels.status }}Status: {{ .Labels.status }}{{ end }}
             Value: {{ .Annotations.Value }}
             {{ if gt (len .SilenceURL) 0 }}Silence: {{ .SilenceURL }}{{ end }}
             {{ end }}
