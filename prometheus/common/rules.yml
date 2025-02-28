@@ -11,7 +11,7 @@ groups:
         expr: |
           min by (server) (
             label_replace(
-              node_filesystem_free_bytes{fstype!="tmpfs"} / 1e9 < 20, 
+              node_filesystem_avail_bytes{fstype!="tmpfs"} / 1e9 < 20, 
               "status", 
               "low_space", 
               "", 
