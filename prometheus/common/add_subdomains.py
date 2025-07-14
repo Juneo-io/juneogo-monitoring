@@ -70,7 +70,9 @@ for domain, zone_id in zone_map.items():
 # Function to check if DNS record exists locally
 def dns_record_exists(zone_id, target, ip):
     records = dns_records_map.get(zone_id, [])
-    return any(record['name'] == target and record['content'] == ip for record in records)
+    target_lower = target.lower()
+    ip_lower = str(ip).lower()
+    return any(record['name'].lower() == target_lower and str(record['content']).lower() == ip_lower for record in records)
 
 # Loop through the servers and add DNS records
 headers_write = {
