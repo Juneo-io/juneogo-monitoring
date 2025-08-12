@@ -41,5 +41,15 @@ datasources:
       timeInterval: '5s'
     version: 1
     uid: "JuneogoPrometheusBluebyte"
+
+  - name: Fusion
+    type: prometheus
+    access: proxy
+    url: http://prometheus-fusion:9090
+    editable: true
+    jsonData:
+      timeInterval: '5s'
+    version: 1
+    uid: "JuneogoPrometheusFusion"
   
 
