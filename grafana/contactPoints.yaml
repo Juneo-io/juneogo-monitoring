@@ -71,3 +71,39 @@ contactPoints:
             {{ end }}
             {{ end }}
         disableResolveMessage: false
+
+  - orgId: 1
+    name: telegram-contact-point-sponsored
+    receivers:
+      - uid: telegram-receiver-sponsored
+        type: telegram
+        settings:
+          bottoken: ${BOT_TOKEN}
+          chatid: |
+            ${CHAT_ID_SPONSORED}
+          disable_web_page_preview: true
+          message: |
+            {{ if gt (len .Alerts.Firing) 0 }}
+            🚨 Firing (#{{ .Alerts.Firing | len }}) Servers 🚨 :
+            {{ range .Alerts.Firing }}
+            ------------------------------------------
+            Alertname: {{ index .Labels "alertname" }}
+            Time: {{ .StartsAt.Format "15:04:05 2006-01-02" }}
+            Server: {{ .Labels.server }}
+            {{ if .Labels.status }}Status: {{ .Labels.status }}{{ end }}
+            Value: {{ .Annotations.Value }}
+            {{ if gt (len .SilenceURL) 0 }}Silence: {{ .SilenceURL }}{{ end }}
+            {{ end }}
+            {{ end }}
+
+            {{ if gt (len .Alerts.Resolved) 0 }}
+            ✅ Resolved (#{{ .Alerts.Resolved | len }}) Servers ✅ :
+            {{ range .Alerts.Resolved }}
+            ------------------------------------------
+            Alertname: {{ index .Labels "alertname" }}
+            Time: {{ .EndsAt.Format "15:04:05 2006-01-02" }}
+            Server: {{ .Labels.server }}
+            {{ if gt (len .SilenceURL) 0 }}Silence: {{ .SilenceURL }}{{ end }}
+            {{ end }}
+            {{ end }}
+        disableResolveMessage: false
