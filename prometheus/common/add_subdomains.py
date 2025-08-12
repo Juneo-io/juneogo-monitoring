@@ -53,13 +53,23 @@ def extract_domain(target):
 
 # Fetch all DNS records for each zone
 def fetch_all_dns_records(zone_id):
-    api_endpoint = f"https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records"
-    response = requests.get(api_endpoint, headers=headers_read)
-    if response.status_code == 200:
-        return response.json().get('result', [])
-    else:
-        print(f"Failed to fetch DNS records for zone {zone_id}: {response.text}")
-        return []
+    records = []
+    page = 1
+    per_page = 100
+    while True:
+        api_endpoint = f"https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records?page={page}&per_page={per_page}"
+        response = requests.get(api_endpoint, headers=headers_read)
+        if response.status_code == 200:
+            data = response.json()
+            page_records = data.get('result', [])
+            records.extend(page_records)
+            if len(page_records) < per_page:
+                break
+            page += 1
+        else:
+            print(f"Failed to fetch DNS records for zone {zone_id}: {response.text}")
+            break
+    return records
 
 # Map to store DNS records for each zone
 dns_records_map = {}
@@ -70,7 +80,9 @@ for domain, zone_id in zone_map.items():
 # Function to check if DNS record exists locally
 def dns_record_exists(zone_id, target, ip):
     records = dns_records_map.get(zone_id, [])
-    return any(record['name'] == target and record['content'] == ip for record in records)
+    target_lower = target.lower()
+    ip_lower = str(ip).lower()
+    return any(record['name'].lower() == target_lower and str(record['content']).lower() == ip_lower for record in records)
 
 # Loop through the servers and add DNS records
 headers_write = {

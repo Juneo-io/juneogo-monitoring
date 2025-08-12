@@ -1,0 +1,34 @@
+services:
+  prometheus-banana:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: prometheus-banana
+    user: root
+    restart: unless-stopped
+    # ports:
+    #   - '9090:9090' # Uncomment to use without HTTPS
+    volumes:
+      - ./prometheus/banana:/app/prometheus/banana
+      - ./prometheus/common:/app/prometheus/common
+      - ./prometheus/common/rules.yml:/app/prometheus/rules.yml
+    env_file:
+      - .env
+    environment:
+      - PROMETHEUS_CONFIG_DIR=/app/prometheus/banana
+      - PROMETHEUS_NAME=prometheus-banana
+    networks:
+      monitoring-network:
+        ipv4_address: 192.168.11.8
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
+
+
+
+
+networks:
+  monitoring-network:
+    external: true
