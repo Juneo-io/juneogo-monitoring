@@ -31,5 +31,15 @@ datasources:
       timeInterval: '5s'
     version: 1
     uid: "JuneogoPrometheusBanana"
+
+  - name: Bluebyte
+    type: prometheus
+    access: proxy
+    url: http://prometheus-bluebyte:9090
+    editable: true
+    jsonData:
+      timeInterval: '5s'
+    version: 1
+    uid: "JuneogoPrometheusBluebyte"
   
 
